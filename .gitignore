@@ -1,0 +1,23 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+teste.txt
+# dependencies
+/escalonamento/node_modules
+/escalonamento/.pnp
+/escalonamento/.pnp.js
+
+# testing
+/escalonamento/coverage
+
+# production
+/escalonamento/build
+
+# misc
+/escalonamento/.DS_Store
+/escalonamento/.env.local
+/escalonamento/.env.development.local
+/escalonamento/.env.test.local
+/escalonamento/.env.production.local
+
+/escalonamento/npm-debug.log*
+/escalonamento/yarn-debug.log*
+/escalonamento/yarn-error.log*
