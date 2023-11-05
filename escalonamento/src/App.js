@@ -1,7 +1,20 @@
 import logo from './logo.svg';
+import Process from './Process.js';
 import './App.css';
 
 function App() {
+  processo1 = new Process(1, 0, 3, 3, 1, 1);
+  console.log(processo1.toString());
+  processo1.incrementaElapsedTime();
+  console.log(processo1.toString());
+  processo1.incrementaTempoEspera();
+  console.log(processo1.toString());
+  processo1.incrementaElapsedTime();
+  console.log(processo1.getTurnaround());
+  console.log(processo1.toString());
+  processo1.incrementaElapsedTime();
+  console.log(processo1.toString());
+  console.log(processo1.getTurnaround());
   return (
     <div className="App">
       <header className="App-header">
