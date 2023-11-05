@@ -3,7 +3,7 @@ import Process from './Process.js';
 import './App.css';
 
 function App() {
-  processo1 = new Process(1, 0, 3, 3, 1, 1);
+  let processo1 = new Process(1, 0, 3, 3, 1, 1);
   console.log(processo1.toString());
   processo1.incrementaElapsedTime();
   console.log(processo1.toString());
