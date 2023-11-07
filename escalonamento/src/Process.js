@@ -65,6 +65,10 @@ export default class Process {
         return this;
     }
 
+    jaChegou(t){//Recebe um tempo t e retorna se o processo já chegou ou não nesse t
+        return this._tempoChegada <= t;
+    }
+
     get id() {
         return this._id;
     }
