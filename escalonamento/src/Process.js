@@ -1,11 +1,11 @@
 export default class Process {
     constructor(
         id,
-        tempoChegada,
-        tempExec,
-        deadline,
-        prioridade,
-        tamanho,
+        tempoChegada,//Recebe uma string e converte para inteiro
+        tempExec,//Recebe uma string e converte para inteiro
+        deadline,//Recebe uma string e converte para inteiro
+        prioridade,//Recebe uma string e converte para inteiro
+        tamanho,//Recebe uma string e converte para inteiro
         elapsedTime = 0,
         tempoEspera = 0
     ) {
@@ -22,8 +22,8 @@ export default class Process {
         } else{
             this._tempExec = tempExec;
         }
-        this._deadline = deadline;
-        this._prioridade = prioridade;
+        this._deadline = parseInt(deadline);
+        this._prioridade = parseInt(prioridade);
         tamanho = parseInt(tamanho);
         if(tamanho<1){
             this._tamanho = 1;
