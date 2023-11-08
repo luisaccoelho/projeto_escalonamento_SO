@@ -12,15 +12,6 @@ export default class Fila {//Estrutura para ser utilizada no FIFO e Round Robin
         return this._fila;
     }
 
-    preempta(){//Joga o primeiro processo da fila para o final e retorna o array
-        if(this._fila.length===0){//Se a fila está vazia, retorna null
-            return null;
-        }
-        processo = this._fila.shift();
-        this.entra(processo);
-        return this;
-    }
-
     sai(){//Remove o primeiro processo da fila e retorna o processo removido
         if (this._fila.length===0){//Se a fila está vazia, retorna null
             return null;

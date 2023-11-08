@@ -70,6 +70,10 @@ export default class Estado {
         this._tempo++;//Incrementa o tempo da simulação
     }
 
+    get emSobrecarga(){//Retorna se a CPU está em sobrecarga ou não
+        return this._sobrecarga > 0;
+    }
+
     get processos(){
         return this._processos;
     }
