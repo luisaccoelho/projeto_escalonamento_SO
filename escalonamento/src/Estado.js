@@ -70,6 +70,42 @@ export default class Estado {
         this._tempo++;//Incrementa o tempo da simulação
     }
 
+    transicaoRoundRobin(tamQuantum=0, tamSobrecarga=0)  // recebe os tamanhos totais do quantum e da sobrecarga
+    {
+        this.Fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
+        if(this._sobrecarga > 0) this._sobrecarga--; // decrementa o tempo de sobrecarga se houver
+        else
+        {
+
+            if(this._executando != null){//Se existe um processo sendo executado, executa um ciclo de processamento
+                this._executando.incrementaElapsedTime();
+                if(this._executando.terminou){//Se o processo terminou, libera o processador
+                    this._executando = null;
+                }else{
+                    if(this._quantum === 0) // não terminou e acabou o tempo do quantum
+                    {
+                        this._sobrecarga = tamSobrecarga;
+                        this._fila = this._fila.entra(this._executando); // coloca o processo no final da fila
+                        this._executando = null;
+                    }
+                    else this._quantum--; // decrementa o tempo do quantum
+                }
+
+            }else{//Se não há um processo sendo executado, verifica se há algum processo apto a ser escalonado
+
+                if (this._fila.primeiro != null){//Verifica se a fila não está vazia
+                    this._executando = fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
+                    this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
+                    if(this._executando.terminou){//Se o processo terminou, libera o processador
+                        this._executando = null;
+                    }
+                    else this._quantum = tamQuantum; // se não terminou, reinicia o quantum (porque adicionou novo processo)
+                }
+            }
+        }
+        this._tempo++;//Incrementa o tempo da simulação
+    }
+
     get emSobrecarga(){//Retorna se a CPU está em sobrecarga ou não
         return this._sobrecarga > 0;
     }

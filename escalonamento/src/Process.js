@@ -4,7 +4,7 @@ export default class Process {
         tempoChegada,//Recebe uma string e converte para inteiro
         tempExec,//Recebe uma string e converte para inteiro
         deadline,//Recebe uma string e converte para inteiro
-        prioridade,//Recebe uma string e converte para inteiro
+        //prioridade,//Recebe uma string e converte para inteiro
         tamanho,//Recebe uma string e converte para inteiro
         elapsedTime = 0,
         tempoEspera = 0
@@ -23,7 +23,7 @@ export default class Process {
             this._tempExec = tempExec;
         }
         this._deadline = parseInt(deadline);
-        this._prioridade = parseInt(prioridade);
+        //this._prioridade = parseInt(prioridade);
         tamanho = parseInt(tamanho);
         if(tamanho<1){
             this._tamanho = 1;
@@ -39,8 +39,8 @@ export default class Process {
     }
 
     toString() {
-        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nPrioridade: ${this._prioridade}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\n\n`;
-    }
+        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\n\n`;
+    }   // não conta Prioridade
 
     getTurnaround() {
         return this._tempoEspera + this._elapsedTime;
@@ -105,6 +105,8 @@ export default class Process {
         return this;
     }
 
+    /*
+    //Não será utilizada por qualquer método
     get prioridade() {
         return this._prioridade;
     }
@@ -113,6 +115,7 @@ export default class Process {
         this._prioridade = value;
         return this;
     }
+    */
 
     get tamanho() {
         return this._tamanho;
