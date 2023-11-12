@@ -119,34 +119,12 @@ export default class Estado {
     trasicaoEDF(tamQuantum=0, tamSobrecarga=0){ //Executa um ciclo da simulação baseado no algoritmo EDF 
         if (this._sobrecarga>0){//Se estiver em sobrecarga, decrementa o tempo de sobrecarga e finaliza a transição
             this._sobrecarga--;
-            return;
         }
-        if(this._executando != null){
-            this._executando.incrementaElapsedTime();
-            this._quantum--; // decrementa o tempo do quantum
-            if(this._executando.terminou){//Se o processo terminou, libera o processador
-                this._executando = null;
-            }
-            else{
-                if(this._quantum === 0) // Se o processo não terminou e acabou o tempo do quantum, preempta o processo
-                {
-                    this._sobrecarga = tamSobrecarga;
-                    this._executando = null;
-                }
-            }
-        }
-        else{//Se não há um processo sendo executado, verifica se há algum processo apto a ser escalonado e o escalona
-            const processosAtivos = this.getProcessosAtivos();
-            if(processosAtivos.length>0){//Se existe um processo apto, o escalona e executa um ciclo de processamento
-                let menorDL = processosAtivos[0];
-                for(let i=1;i<processosAtivos.length;i++){//Busca o processo com o menor deadline
-                    if(processosAtivos[i].deadline < menorDL.deadline){
-                        menorDL = processosAtivos[i];
-                    }
-                }
-                this._executando = menorDL;//Escalona o processo com o menor deadline
-                this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
-                this._quantum = tamQuantum-1; //Reseta o tempo do quantum e decrementa em 1 (em função do ciclo de processamento executado)
+        else
+        {//Se não estiver em sobrecarga, tenta executar um ciclo de processamento
+            if(this._executando != null){
+                this._executando.incrementaElapsedTime();
+                this._quantum--; // decrementa o tempo do quantum
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
                     this._executando = null;
                 }
@@ -155,6 +133,30 @@ export default class Estado {
                     {
                         this._sobrecarga = tamSobrecarga;
                         this._executando = null;
+                    }
+                }
+            }
+            else{//Se não há um processo sendo executado, verifica se há algum processo apto a ser escalonado e o escalona
+                const processosAtivos = this.getProcessosAtivos();
+                if(processosAtivos.length>0){//Se existe um processo apto, o escalona e executa um ciclo de processamento
+                    let menorDL = processosAtivos[0];
+                    for(let i=1;i<processosAtivos.length;i++){//Busca o processo com o menor deadline
+                        if(processosAtivos[i].deadline < menorDL.deadline){
+                            menorDL = processosAtivos[i];
+                        }
+                    }
+                    this._executando = menorDL;//Escalona o processo com o menor deadline
+                    this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
+                    this._quantum = tamQuantum-1; //Reseta o tempo do quantum e decrementa em 1 (em função do ciclo de processamento executado)
+                    if(this._executando.terminou){//Se o processo terminou, libera o processador
+                        this._executando = null;
+                    }
+                    else{
+                        if(this._quantum === 0) // Se o processo não terminou e acabou o tempo do quantum, preempta o processo
+                        {
+                            this._sobrecarga = tamSobrecarga;
+                            this._executando = null;
+                        }
                     }
                 }
             }
