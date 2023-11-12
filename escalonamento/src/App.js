@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import Process from './Process.js';
+import {Simulacao, Algoritmo} from './Simulacao.js';
 import './App.css';
 
 function App() {

@@ -106,7 +106,7 @@ export default class Process {
     }
 
     /*
-    //Não será utilizada por qualquer método
+    //Não será utilizada por nenhum algoritmo
     get prioridade() {
         return this._prioridade;
     }

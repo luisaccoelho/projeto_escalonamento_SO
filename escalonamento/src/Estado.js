@@ -24,9 +24,11 @@ export default class Estado {
         return processosAtivos;
     }
 
-    transicaoSJF(){//Executa um ciclo da simulação utilizando o algoritmo SJF
+    transicaoSJF(){//Executa um ciclo da simulação utilizando o algoritmo SJF. Retorna 0 se não tinha nenhum processo apto para execução ou o processo executado se houve algum.
+        let execucao = 0;
         if (this._executando != null){//Se existe um processo sendo executado, executa um ciclo de processamento
             this._executando.incrementaElapsedTime();
+            execucao = this._executando;
             if(this._executando.terminou){//Se o processo terminou, libera o processador
                 this._executando = null;
             }
@@ -42,18 +44,22 @@ export default class Estado {
                 }
                 this._executando = shortestJob;//Escalona o processo com o menor tempo de execução
                 this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
+                execucao = this._executando
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
                     this._executando = null;
                 }
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
-    transicaoFIFO(){//Executa um ciclo da simulação utilizando o algoritmo FIFO
+    transicaoFIFO(){//Executa um ciclo da simulação utilizando o algoritmo FIFO, retorna o processo executado ou 0 se não houve nenhum
+        let execucao = 0;
         this.fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
         if(this._executando != null){//Se existe um processo sendo executado, executa um ciclo de processamento
             this._executando.incrementaElapsedTime();
+            execucao = this._executando;
             if(this._executando.terminou){//Se o processo terminou, libera o processador
                 this._executando = null;
             }
@@ -62,23 +68,28 @@ export default class Estado {
             if (this._fila.primeiro != null){//Verifica se a fila não está vazia
                 this._executando = fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
                 this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
+                execucao = this._executando;
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
                     this._executando = null;
                 }
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
-    transicaoRoundRobin(tamQuantum=0, tamSobrecarga=0)  // recebe os tamanhos totais do quantum e da sobrecarga
+    transicaoRoundRobin(tamQuantum=0, tamSobrecarga=0)  // recebe os tamanhos totais do quantum e da sobrecarga. Retorna -1 se estava em sobrecarga, 0 se não tinha nenhum processo apto para execução ou o processo executado se houve algum.
     {
+        let execucao = 0;
         this.fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
-        if(this._sobrecarga > 0) this._sobrecarga--; // decrementa o tempo de sobrecarga se houver
-        else
+        if(this._sobrecarga > 0){
+            this._sobrecarga--; // decrementa o tempo de sobrecarga se houver
+            execucao = -1;
+        } else
         {
-
             if(this._executando != null){//Se existe um processo sendo executado, executa um ciclo de processamento
                 this._executando.incrementaElapsedTime();
+                execucao = this._executando;//Armazena o processo executado
                 this._quantum--; // decrementa o tempo do quantum
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
                     this._executando = null;
@@ -97,6 +108,7 @@ export default class Estado {
                     this._executando = fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
                     this._quantum = tamQuantum; // reinicia o quantum
                     this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
+                    execucao = this._executando;//Armazena o processo executado
                     this._quantum--; // decrementa o tempo do quantum
                     if(this._executando.terminou){//Se o processo terminou, libera o processador
                         this._executando = null;
@@ -114,16 +126,20 @@ export default class Estado {
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
     trasicaoEDF(tamQuantum=0, tamSobrecarga=0){ //Executa um ciclo da simulação baseado no algoritmo EDF 
+        let execucao = 0;
         if (this._sobrecarga>0){//Se estiver em sobrecarga, decrementa o tempo de sobrecarga e finaliza a transição
             this._sobrecarga--;
+            execucao = -1;
         }
         else
         {//Se não estiver em sobrecarga, tenta executar um ciclo de processamento
             if(this._executando != null){
                 this._executando.incrementaElapsedTime();
+                execucao = this._executando;//Armazena o processo executado
                 this._quantum--; // decrementa o tempo do quantum
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
                     this._executando = null;
@@ -147,6 +163,7 @@ export default class Estado {
                     }
                     this._executando = menorDL;//Escalona o processo com o menor deadline
                     this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
+                    execucao = this._executando;//Armazena o processo executado
                     this._quantum = tamQuantum-1; //Reseta o tempo do quantum e decrementa em 1 (em função do ciclo de processamento executado)
                     if(this._executando.terminou){//Se o processo terminou, libera o processador
                         this._executando = null;
@@ -161,6 +178,8 @@ export default class Estado {
                 }
             }
         }
+        this._tempo++;//Incrementa o tempo da simulação
+        return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
     get emSobrecarga(){//Retorna se a CPU está em sobrecarga ou não
