@@ -56,7 +56,7 @@ export default class Estado {
 
     transicaoFIFO(){//Executa um ciclo da simulação utilizando o algoritmo FIFO, retorna o processo executado ou 0 se não houve nenhum
         let execucao = 0;
-        this.fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
+        this._fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
         if(this._executando != null){//Se existe um processo sendo executado, executa um ciclo de processamento
             this._executando.incrementaElapsedTime();
             execucao = this._executando;
@@ -66,7 +66,7 @@ export default class Estado {
         }
         else{//Se não há um processo sendo executado, verifica se há algum processo apto a ser escalonado
             if (this._fila.primeiro != null){//Verifica se a fila não está vazia
-                this._executando = fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
+                this._executando = this._fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
                 this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
                 execucao = this._executando;
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
@@ -81,7 +81,7 @@ export default class Estado {
     transicaoRoundRobin(tamQuantum=0, tamSobrecarga=0)  // recebe os tamanhos totais do quantum e da sobrecarga. Retorna -1 se estava em sobrecarga, 0 se não tinha nenhum processo apto para execução ou o processo executado se houve algum.
     {
         let execucao = 0;
-        this.fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
+        this._fila.chegam(this._tempo);//Adiciona na fila todos os processos que chegam no tempo atual
         if(this._sobrecarga > 0){
             this._sobrecarga--; // decrementa o tempo de sobrecarga se houver
             execucao = -1;
@@ -105,7 +105,7 @@ export default class Estado {
             }else{//Se não há um processo sendo executado, verifica se há algum processo apto a ser escalonado
 
                 if (this._fila.primeiro != null){//Verifica se a fila não está vazia
-                    this._executando = fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
+                    this._executando = this._fila.sai();//Se a fila não está vazia, remove o primeiro processo e o escalona
                     this._quantum = tamQuantum; // reinicia o quantum
                     this._executando.incrementaElapsedTime();//Executa um ciclo de processamento
                     execucao = this._executando;//Armazena o processo executado
