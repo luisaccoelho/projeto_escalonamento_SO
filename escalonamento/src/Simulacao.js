@@ -13,9 +13,9 @@ const Tabela = { //Enumeração dos estados dos processos na tabela
     ESPERANDO: 2, //Processo está esperando para ser executado
     FINALIZADO: 3, //Processo já foi executado
     SOBRECARGA: 4, //CPU em sobrecarga
-    EXECUTANDO_DL: 5, //Variação do estado EXECUTANDO para quando a deadline estorou
-    ESPERANDO_DL: 6, //Variação do estado ESPERANDO para quando a deadline estorou
-    FINALIZADO_DL: 7 //Variação do estado FINALIZADO para quando a deadline estorou
+    EXECUTANDO_DL: 5, //Variação do estado EXECUTANDO para quando a deadline estourou
+    ESPERANDO_DL: 6, //Variação do estado ESPERANDO para quando a deadline estourou
+    FINALIZADO_DL: 7 //Variação do estado FINALIZADO para quando a deadline estourou
 }
 
 export default class Simulacao {
@@ -27,7 +27,7 @@ export default class Simulacao {
         let quantum = parseInt(tamQuantum);
         if(quantum<1) quantum = 1; //Se o quantum for menor que 1, ele é 1
         this._tamQuantum = quantum;//Duração total do quantum
-        this._algortmo = algoritmo;//Algoritmo de escalonamento
+        this._algoritmo = algoritmo;//Algoritmo de escalonamento
         this._colunas=[];//Array de colunas da tabela
     }
 

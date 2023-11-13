@@ -126,10 +126,10 @@ export default class Estado {
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
-        return execucao;//Retorna o processo executado ou 0 se não houve nenhum
+        return execucao;//Retorna o processo executado, 0 se não houve nenhum, ou -1 se estava em sobrecarga
     }
 
-    trasicaoEDF(tamQuantum=0, tamSobrecarga=0){ //Executa um ciclo da simulação baseado no algoritmo EDF 
+    transicaoEDF(tamQuantum=0, tamSobrecarga=0){ //Executa um ciclo da simulação baseado no algoritmo EDF 
         let execucao = 0;
         if (this._sobrecarga>0){//Se estiver em sobrecarga, decrementa o tempo de sobrecarga e finaliza a transição
             this._sobrecarga--;
@@ -179,7 +179,7 @@ export default class Estado {
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
-        return execucao;//Retorna o processo executado ou 0 se não houve nenhum
+        return execucao;//Retorna o processo executado, 0 se não houve nenhum ou -1 se estava em sobrecarga
     }
 
     get emSobrecarga(){//Retorna se a CPU está em sobrecarga ou não
