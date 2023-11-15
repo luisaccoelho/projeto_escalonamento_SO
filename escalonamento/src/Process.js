@@ -7,7 +7,7 @@ export default class Process {
         //prioridade,//Recebe uma string e converte para inteiro
         tamanho,//Recebe uma string e converte para inteiro
         elapsedTime = 0,
-        tempoEspera = 0,
+        tempoEspera = 0
     ) {
         this._id = id;
         tempoChegada = parseInt(tempoChegada);
@@ -161,6 +161,15 @@ export default class Process {
 
     set elapsedTime(value) {
         this._elapsedTime = value;
+        return this;
+    }
+
+    get ultimaChamda() {
+        return this._ultimaChamada;
+    }
+
+    set ultimaChamda(value) {
+        this._ultimaChamada = value;
         return this;
     }
 }
