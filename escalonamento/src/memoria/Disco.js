@@ -1,8 +1,8 @@
-import Process from "./Process";
-import Fila from "./Fila";
+import Process from "../Process";
+import Fila from "../Fila";
 
 export default class Disco {
-    constructor(processos = []){
+    constructor(processos=[]){
         this._processos = new Fila(processos);
     }
 
