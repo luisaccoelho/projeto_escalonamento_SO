@@ -7,7 +7,7 @@ export default class Process {
         //prioridade,//Recebe uma string e converte para inteiro
         tamanho,//Recebe uma string e converte para inteiro
         elapsedTime = 0,
-        tempoEspera = 0
+        tempoEspera = 0,
     ) {
         this._id = id;
         tempoChegada = parseInt(tempoChegada);
@@ -36,6 +36,7 @@ export default class Process {
         this._tempoEspera = tempoEspera;
         this._expirou = this._deadline < 0;
         this._terminou = this._elapsedTime === this._tempExec;
+        this._ultimaChamada = -1;
     }
 
     toString() {
@@ -48,6 +49,7 @@ export default class Process {
 
     incrementaElapsedTime() {
         this._elapsedTime++;
+        this._ultimaChamada++;
         this._deadline--;
         this._terminou = this._elapsedTime === this._tempExec;
         if (this._deadline < 0) {
