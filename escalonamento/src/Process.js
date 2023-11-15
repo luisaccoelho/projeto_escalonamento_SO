@@ -49,7 +49,6 @@ export default class Process {
 
     incrementaElapsedTime() {
         this._elapsedTime++;
-        this._ultimaChamada++;
         this._deadline--;
         this._terminou = this._elapsedTime === this._tempExec;
         if (this._deadline < 0) {
