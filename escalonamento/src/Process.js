@@ -37,6 +37,7 @@ export default class Process {
         this._expirou = this._deadline < 0;
         this._terminou = this._elapsedTime === this._tempExec;
         this._ultimaChamada = -1;
+        this._enderecoRam = -1;
     }
 
     toString() {
@@ -169,6 +170,15 @@ export default class Process {
 
     set ultimaChamda(value) {
         this._ultimaChamada = value;
+        return this;
+    }
+
+    get enderecoRam() {
+        return this._enderecoRam;
+    }
+
+    set enderecoRam(value) {
+        this._enderecoRam = value;
         return this;
     }
 }
