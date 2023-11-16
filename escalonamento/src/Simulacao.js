@@ -50,6 +50,7 @@ export default class Simulacao {
                 throw new Error("Algoritmo inválido");
         }
         this._colunas.push(this.coluna(execucao));
+        return this
     }
 
     coluna(execucao){//Retorna um array com os estados dos processos, recebe o processo que foi executado
@@ -91,6 +92,25 @@ export default class Simulacao {
             }
         }
         return coluna;
+    }
+
+    terminou(){
+        let processos = this._estado.processos;
+        for(let i=0; i<processos.length; i++){
+            if(!processos[i].terminou){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    get turnaroundMedio(){//Retorna o turnaround médio dos processos arredoado para 2 casas decimais
+        let turnaround = 0;
+        let processos = this._estado.processos;
+        for (let i = 0; i < processos.length; i++) {//Soma todos os turnarounds
+            turnaround += processos[i].getTurnaround();
+        }
+        return Number((turnaround/processos.length).toFixed(2));//Divide a soma pelo número de processos e arredonda para 2 casas decimais
     }
 
     get colunas(){
