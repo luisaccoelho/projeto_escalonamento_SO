@@ -1,13 +1,13 @@
 import Estado from "./Estado";
 
-const Algoritmo = { //Enumeração dos algoritmos de escalonamento
+export const Algoritmo = { //Enumeração dos algoritmos de escalonamento
     SJF: 0,
     FIFO: 1,
     RR: 2,
     EDF: 3
 };
 
-const Tabela = { //Enumeração dos estados dos processos na tabela
+export const Tabela = { //Enumeração dos estados dos processos na tabela
     ACHEGAR: 0, //Processo ainda não chegou
     EXECUTANDO: 1, //Processo está sendo executado
     ESPERANDO: 2, //Processo está esperando para ser executado
@@ -18,7 +18,7 @@ const Tabela = { //Enumeração dos estados dos processos na tabela
     FINALIZADO_DL: 7 //Variação do estado FINALIZADO para quando a deadline estourou
 }
 
-export default class Simulacao {
+export class Simulacao {
     constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1){
         this._estado = new Estado(processos); //Estado atual da simulação
         let sobrecarga = parseInt(tamSobrecarga);

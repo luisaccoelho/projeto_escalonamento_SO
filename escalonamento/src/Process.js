@@ -3,9 +3,9 @@ export default class Process {
         id,
         tempoChegada,//Recebe uma string e converte para inteiro
         tempExec,//Recebe uma string e converte para inteiro
-        deadline,//Recebe uma string e converte para inteiro
+        deadline=1,//Recebe uma string e converte para inteiro
         //prioridade,//Recebe uma string e converte para inteiro
-        tamanho,//Recebe uma string e converte para inteiro
+        tamanho=1,//Recebe uma string e converte para inteiro
         elapsedTime = 0,
         tempoEspera = 0
     ) {
