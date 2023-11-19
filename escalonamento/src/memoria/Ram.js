@@ -47,6 +47,9 @@ export default class Ram{
         for(let i=0;i<this._ram.length;i++){
             if(this._ram[i]===processoAntigo){
                 this._ram.splice(i, 1, processoNovo);
+                processoNovo.enderecoRam = processoAntigo.enderecoRam;
+                processoAntigo.enderecoRam = -1;
+                break;
             }
         }
         return this._ram;
