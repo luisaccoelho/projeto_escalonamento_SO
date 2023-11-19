@@ -1,0 +1,65 @@
+.Coluna{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ACHEGAR{
+    background-color: #001219;
+    border-radius: 14px;
+    height: 100px;
+    width: 100px;
+}
+
+.EXECUTANDO{
+    background-color: #0a9396;
+    border-radius: 14px;
+    height: 100px;
+    width: 100px;
+}
+
+.ESPERANDO{
+    background-color: #94d2bd;
+    border-radius: 14px;
+    height: 100px;
+    width: 100px;
+}
+
+.FINALIZADO{
+    background-color: #e9d8a6;
+    border-radius: 14px;
+    height: 100px;
+    width: 100px;
+}
+
+.SOBRECARGA{
+    background-color: #AE2012;
+    border-radius: 14px;
+    height: 100px;
+    width: 100px;
+}
+
+.EXECUTANDO_DL{
+    background-color: #0a9496;
+    border: #BB3E03 solid 5px;
+    border-radius: 14px;
+    height: 95px;
+    width: 95px;
+}
+
+.ESPERANDO_DL{
+    background-color: #94d2bd;
+    border: #BB3E03 solid 5px;
+    border-radius: 14px;
+    height: 95px;
+    width: 95px;
+}
+
+.FINALIZADO_DL{
+    background-color: #e9d8a6;
+    border: #BB3E03 solid 5px;
+    border-radius: 14px;
+    height: 95px;
+    width: 95px;
+}

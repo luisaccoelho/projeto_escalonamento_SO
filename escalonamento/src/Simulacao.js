@@ -1,13 +1,13 @@
 import Estado from "./Estado";
 
-const Algoritmo = { //Enumeração dos algoritmos de escalonamento
+export const Algoritmo = { //Enumeração dos algoritmos de escalonamento
     SJF: 0,
     FIFO: 1,
     RR: 2,
     EDF: 3
 };
 
-const Tabela = { //Enumeração dos estados dos processos na tabela
+export const Tabela = { //Enumeração dos estados dos processos na tabela
     ACHEGAR: 0, //Processo ainda não chegou
     EXECUTANDO: 1, //Processo está sendo executado
     ESPERANDO: 2, //Processo está esperando para ser executado
@@ -18,7 +18,7 @@ const Tabela = { //Enumeração dos estados dos processos na tabela
     FINALIZADO_DL: 7 //Variação do estado FINALIZADO para quando a deadline estourou
 }
 
-export default class Simulacao {
+export class Simulacao {
     constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1){
         this._estado = new Estado(processos); //Estado atual da simulação
         let sobrecarga = parseInt(tamSobrecarga);
@@ -50,6 +50,7 @@ export default class Simulacao {
                 throw new Error("Algoritmo inválido");
         }
         this._colunas.push(this.coluna(execucao));
+        return this
     }
 
     coluna(execucao){//Retorna um array com os estados dos processos, recebe o processo que foi executado
@@ -91,6 +92,25 @@ export default class Simulacao {
             }
         }
         return coluna;
+    }
+
+    terminou(){
+        let processos = this._estado.processos;
+        for(let i=0; i<processos.length; i++){
+            if(!processos[i].terminou){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    get turnaroundMedio(){//Retorna o turnaround médio dos processos arredoado para 2 casas decimais
+        let turnaround = 0;
+        let processos = this._estado.processos;
+        for (let i = 0; i < processos.length; i++) {//Soma todos os turnarounds
+            turnaround += processos[i].getTurnaround();
+        }
+        return Number((turnaround/processos.length).toFixed(2));//Divide a soma pelo número de processos e arredonda para 2 casas decimais
     }
 
     get colunas(){
