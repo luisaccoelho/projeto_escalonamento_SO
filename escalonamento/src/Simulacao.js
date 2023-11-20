@@ -58,7 +58,7 @@ export class Simulacao {
         let coluna = [];
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
-            if(!processo.jaChegou()){
+            if(!processo.jaChegou(this._estado.tempo)){
                 coluna.push(Tabela.ACHEGAR);//Processo ainda não chegou
             }
             else{
