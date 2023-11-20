@@ -28,9 +28,13 @@ function Quadrado(estado){
 }
 
 function Coluna({coluna}) {
-  return (
-    <div className='Coluna'>{coluna.map((estado) => <Quadrado estado = {estado}/>)}</div>
-  );
+    return (
+        <div className='Coluna'>
+            {coluna.map((estado, index) => (
+                <Quadrado key={index} estado={estado} />
+            ))}
+        </div>
+    );
 }
 
 export default Coluna;
