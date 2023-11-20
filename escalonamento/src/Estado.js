@@ -97,7 +97,7 @@ export default class Estado {
                     if(this._quantum === 0) // não terminou e acabou o tempo do quantum
                     {
                         this._sobrecarga = tamSobrecarga;
-                        this._fila = this._fila.entra(this._executando); // coloca o processo no final da fila
+                        this._fila.entra(this._executando); // coloca o processo no final da fila
                         this._executando = null;
                     }
                 }
@@ -117,7 +117,7 @@ export default class Estado {
                         if(this._quantum === 0) // não terminou e acabou o tempo do quantum (no caso de tamQuantum = 1)
                         {
                             this._sobrecarga = tamSobrecarga;
-                            this._fila = this._fila.entra(this._executando); // coloca o processo no final da fila
+                            this._fila.entra(this._executando); // coloca o processo no final da fila
                             this._executando = null;
                         }
                         else this._quantum--; // decrementa o tempo do quantum
