@@ -49,6 +49,7 @@ export class Simulacao {
             default:
                 throw new Error("Algoritmo inválido");
         }
+        console.log(`Tempo ${this._estado.tempo}, executado ${execucao.id}, coluna ${this.coluna(execucao)}`);
         this._colunas.push(this.coluna(execucao));
         return this
     }
@@ -58,34 +59,41 @@ export class Simulacao {
         let coluna = [];
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
-            if(!processo.jaChegou(this._estado.tempo)){
+            if(!processo.jaChegou(this._estado.tempo-1)){
                 coluna.push(Tabela.ACHEGAR);//Processo ainda não chegou
             }
             else{
                 if(execucao === -1 && !processo.terminou){
                     coluna.push(Tabela.SOBRECARGA); //CPU em sobrecarga
+                    continue;
                 }
                 if(this._algoritmo === Algoritmo.EDF && processo.expirou){
                     if(processo.terminou){
                         coluna.push(Tabela.FINALIZADO_DL); //Processo terminado mas expirado
+                        continue;
                     }
                     else{
                         if(processo === execucao){
                             coluna.push(Tabela.EXECUTANDO_DL); //Processo em execução mas expirado
+                            continue;
                         } else{
                             coluna.push(Tabela.ESPERANDO_DL); //Processo esperando mas expirado
+                            continue;
                         }
                     }
                 }
                 else{
-                    if(processo.terminou){
-                        coluna.push(Tabela.FINALIZADO); //Processo terminado
+                    if(processo === execucao){
+                        coluna.push(Tabela.EXECUTANDO); //Processo em execução
+                        continue;
                     }
                     else{
-                        if(processo === execucao){
-                            coluna.push(Tabela.EXECUTANDO); //Processo em execução
+                        if(processo.terminou){
+                            coluna.push(Tabela.FINALIZADO); //Processo terminado
+                            continue;
                         } else{
                             coluna.push(Tabela.ESPERANDO); //Processo esperando
+                            continue;
                         }
                     }
                 }

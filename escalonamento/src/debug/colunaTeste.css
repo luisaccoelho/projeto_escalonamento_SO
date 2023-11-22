@@ -40,26 +40,26 @@
     width: 100px;
 }
 
-.EXECUTANDO_DL{
+.EXECUTANDO_DL {
     background-color: #0a9496;
-    border: #BB3E03 solid 5px;
+    box-shadow: inset 0 0 0 5px #BB3E03;
     border-radius: 14px;
-    height: 95px;
-    width: 95px;
+    height: 100px;
+    width: 100px;
 }
 
-.ESPERANDO_DL{
+.ESPERANDO_DL {
     background-color: #94d2bd;
-    border: #BB3E03 solid 5px;
+    box-shadow: inset 0 0 0 5px #BB3E03;
     border-radius: 14px;
-    height: 95px;
-    width: 95px;
+    height: 100px;
+    width: 100px;
 }
 
-.FINALIZADO_DL{
+.FINALIZADO_DL {
     background-color: #e9d8a6;
-    border: #BB3E03 solid 5px;
+    box-shadow: inset 0 0 0 5px #BB3E03;
     border-radius: 14px;
-    height: 95px;
-    width: 95px;
+    height: 100px;
+    width: 100px;
 }
