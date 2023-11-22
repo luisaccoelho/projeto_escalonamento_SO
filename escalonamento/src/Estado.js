@@ -51,6 +51,11 @@ export default class Estado {
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
+                this._processos[i].incrementaTempoEspera();
+            }
+        }
         return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
@@ -75,6 +80,11 @@ export default class Estado {
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
+                this._processos[i].incrementaTempoEspera();
+            }
+        }
         return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
@@ -120,12 +130,16 @@ export default class Estado {
                             this._fila.entra(this._executando); // coloca o processo no final da fila
                             this._executando = null;
                         }
-                        else this._quantum--; // decrementa o tempo do quantum
                     }
                 }
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
+                this._processos[i].incrementaTempoEspera();
+            }
+        }
         return execucao;//Retorna o processo executado, 0 se não houve nenhum, ou -1 se estava em sobrecarga
     }
 
@@ -179,6 +193,11 @@ export default class Estado {
             }
         }
         this._tempo++;//Incrementa o tempo da simulação
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
+                this._processos[i].incrementaTempoEspera();
+            }
+        }
         return execucao;//Retorna o processo executado, 0 se não houve nenhum ou -1 se estava em sobrecarga
     }
 

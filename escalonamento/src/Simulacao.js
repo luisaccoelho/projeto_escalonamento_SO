@@ -49,7 +49,6 @@ export class Simulacao {
             default:
                 throw new Error("Algoritmo inválido");
         }
-        console.log(`Tempo ${this._estado.tempo}, executado ${execucao.id}, coluna ${this.coluna(execucao)}`);
         this._colunas.push(this.coluna(execucao));
         return this
     }

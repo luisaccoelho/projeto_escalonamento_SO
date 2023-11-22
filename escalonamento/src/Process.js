@@ -43,16 +43,12 @@ export default class Process {
     }   // não conta Prioridade
 
     getTurnaround() {
-        return this._tempoEspera + this._elapsedTime;
+        return this._tempoEspera;
     }
 
     incrementaElapsedTime() {
         this._elapsedTime++;
-        this._deadline--;
         this._terminou = this._elapsedTime === this._tempExec;
-        if (this._deadline < 0) {
-            this._expirou = true;
-        }
         return this;
     }
 
