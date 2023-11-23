@@ -1,0 +1,42 @@
+.ID{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 30px;
+}
+
+.IDColuna{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Tempo{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: end;
+}
+
+.TempoRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.TempoETabela{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Espaco{
+    width:20px;
+}
+

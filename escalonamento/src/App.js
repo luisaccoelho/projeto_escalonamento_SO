@@ -2,6 +2,8 @@ import Process from './Process.js';
 import {Simulacao, Algoritmo, Tabela} from './Simulacao.js';
 import './App.css';
 import Grafico from './grafico/tabela.js';
+import IdentificadorCol from './grafico/grafico.js';
+import './grafico/grafico.css';
 
 function App() {
   let colunaA = [Tabela.ACHEGAR, Tabela.EXECUTANDO, Tabela.ESPERANDO, Tabela.FINALIZADO, Tabela.SOBRECARGA, Tabela.EXECUTANDO_DL, Tabela.ESPERANDO_DL, Tabela.FINALIZADO_DL];
@@ -14,7 +16,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Grafico colunas={sim.colunas} />
+        <div className='Gannt'>
+          <IdentificadorCol processosnum={sim.processos.length}/>
+          <Grafico colunas={sim.colunas} />
+        </div>
       </header>
     </div>
   );
