@@ -63,4 +63,8 @@ export default class Ram{
         }
         this._processos = processosVerdes;
     }
+
+    get estadoRam() {
+        return this._ram;
+    }
 }
