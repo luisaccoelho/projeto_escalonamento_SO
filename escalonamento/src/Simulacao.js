@@ -58,39 +58,47 @@ export class Simulacao {
         let coluna = [];
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
-            if(!processo.jaChegou()){
+            if(!processo.jaChegou(this._estado.tempo-1)){
                 coluna.push(Tabela.ACHEGAR);//Processo ainda não chegou
             }
             else{
                 if(execucao === -1 && !processo.terminou){
                     coluna.push(Tabela.SOBRECARGA); //CPU em sobrecarga
+                    continue;
                 }
-                if(this._algoritmo === Algoritmo.EDF && processo.expirou){
-                    if(processo.terminou){
-                        coluna.push(Tabela.FINALIZADO_DL); //Processo terminado mas expirado
+                if(this._algoritmo === Algoritmo.EDF && processo.jaExpirouEm(this._estado.tempo-1)){
+                    if(processo === execucao){
+                        coluna.push(Tabela.EXECUTANDO_DL); //Processo terminado mas expirado
+                        continue;
                     }
                     else{
-                        if(processo === execucao){
-                            coluna.push(Tabela.EXECUTANDO_DL); //Processo em execução mas expirado
+                        if(processo.terminou){
+                            coluna.push(Tabela.FINALIZADO_DL); //Processo em execução mas expirado
+                            continue;
                         } else{
                             coluna.push(Tabela.ESPERANDO_DL); //Processo esperando mas expirado
+                            continue;
                         }
                     }
                 }
                 else{
-                    if(processo.terminou){
-                        coluna.push(Tabela.FINALIZADO); //Processo terminado
+                    if(processo === execucao){
+                        coluna.push(Tabela.EXECUTANDO); //Processo em execução
+                        continue;
                     }
                     else{
-                        if(processo === execucao){
-                            coluna.push(Tabela.EXECUTANDO); //Processo em execução
+                        if(processo.terminou){
+                            coluna.push(Tabela.FINALIZADO); //Processo terminado
+                            continue;
                         } else{
                             coluna.push(Tabela.ESPERANDO); //Processo esperando
+                            continue;
                         }
                     }
                 }
             }
         }
+        //console.log(`Tempo ${this._estado.tempo}, Executado ${execucao.id}, Coluna ${coluna}`);
         return coluna;
     }
 

@@ -50,6 +50,17 @@ export default class Estado {
                 }
             }
         }
+        let processoIter = null;
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera();
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera();
+                }
+            }
+        }
         this._tempo++;//Incrementa o tempo da simulação
         return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
@@ -71,6 +82,17 @@ export default class Estado {
                 execucao = this._executando;
                 if(this._executando.terminou){//Se o processo terminou, libera o processador
                     this._executando = null;
+                }
+            }
+        }
+        let processoIter = null;
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera();
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera();
                 }
             }
         }
@@ -97,7 +119,7 @@ export default class Estado {
                     if(this._quantum === 0) // não terminou e acabou o tempo do quantum
                     {
                         this._sobrecarga = tamSobrecarga;
-                        this._fila = this._fila.entra(this._executando); // coloca o processo no final da fila
+                        this._fila.entra(this._executando); // coloca o processo no final da fila
                         this._executando = null;
                     }
                 }
@@ -117,11 +139,21 @@ export default class Estado {
                         if(this._quantum === 0) // não terminou e acabou o tempo do quantum (no caso de tamQuantum = 1)
                         {
                             this._sobrecarga = tamSobrecarga;
-                            this._fila = this._fila.entra(this._executando); // coloca o processo no final da fila
+                            this._fila.entra(this._executando); // coloca o processo no final da fila
                             this._executando = null;
                         }
-                        else this._quantum--; // decrementa o tempo do quantum
                     }
+                }
+            }
+        }
+        let processoIter = null;
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera();
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera();
                 }
             }
         }
@@ -175,6 +207,17 @@ export default class Estado {
                             this._executando = null;
                         }
                     }
+                }
+            }
+        }
+        let processoIter = null;
+        for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera(this._tempo,true);
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera(this._tempo,true);
                 }
             }
         }

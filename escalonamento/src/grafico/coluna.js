@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabela from '../Simulacao.js'
-import './colunaTeste.css';
+import './coluna.css';
 
 function Quadrado(estado){
     let codigo = estado.estado;
@@ -28,9 +28,13 @@ function Quadrado(estado){
 }
 
 function Coluna({coluna}) {
-  return (
-    <div className='Coluna'>{coluna.map((estado) => <Quadrado estado = {estado}/>)}</div>
-  );
+    return (
+        <div className='Coluna'>
+            {coluna.map((estado, index) => (
+                <Quadrado key={index} estado={estado} />
+            ))}
+        </div>
+    );
 }
 
 export default Coluna;

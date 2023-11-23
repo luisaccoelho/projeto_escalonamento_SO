@@ -36,32 +36,36 @@ export default class Process {
         this._tempoEspera = tempoEspera;
         this._expirou = this._deadline < 0;
         this._terminou = this._elapsedTime === this._tempExec;
+<<<<<<< HEAD
         this._ultimaChamada = -1;
         this._enderecoRam = -1;
+=======
+        this._expirouEm = null; //Tempo em que o processo expirou caso tenha acontecido
+>>>>>>> 22e538af38c81c10bb197f6dc7c62801c2a0f58d
     }
 
     toString() {
-        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\n\n`;
+        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\n`;
     }   // não conta Prioridade
 
     getTurnaround() {
-        return this._tempoEspera + this._elapsedTime;
+        return this._tempoEspera;
     }
 
     incrementaElapsedTime() {
         this._elapsedTime++;
-        this._deadline--;
         this._terminou = this._elapsedTime === this._tempExec;
-        if (this._deadline < 0) {
-            this._expirou = true;
-        }
         return this;
     }
 
-    incrementaTempoEspera() {
+    incrementaTempoEspera(t=null, EDF=false) {
         this._tempoEspera++;
         this._deadline--;
         if (this._deadline < 0) {
+            if (!this._expirou&&EDF) {
+                console.log(`Processo ${this._id} expirou no tempo t=${t}!`);
+                this._expirouEm = t;
+            }
             this._expirou = true;
         }
         return this;
@@ -69,6 +73,13 @@ export default class Process {
 
     jaChegou(t){//Recebe um tempo t e retorna se o processo já chegou ou não nesse t
         return this._tempoChegada <= t;
+    }
+
+    jaExpirouEm(t){//Checa se um processo estava expirado no tempo t
+        if(this._expirouEm === null){
+            return false;
+        }
+        return t>=this._expirouEm;
     }
 
     get id() {
@@ -164,6 +175,7 @@ export default class Process {
         return this;
     }
 
+<<<<<<< HEAD
     get ultimaChamda() {
         return this._ultimaChamada;
     }
@@ -179,6 +191,14 @@ export default class Process {
 
     set enderecoRam(value) {
         this._enderecoRam = value;
+=======
+    get expirouEm() {
+        return this._expirouEm;
+    }
+
+    set expirouEm(value) {
+        this._expirouEm = value;
+>>>>>>> 22e538af38c81c10bb197f6dc7c62801c2a0f58d
         return this;
     }
 }
