@@ -1,0 +1,45 @@
+.Input{
+    background-color: rgb(49, 57, 68);
+    color: white;
+    width:40px;
+    margin-right: 20px;
+    margin-left: 7px;
+}
+
+.Rotulo{
+    font-size: 0.7em;
+}
+
+.Formulario{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.Adicionar{
+    background-color: rgb(49, 57, 68);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.Adicionar:hover{
+    background-color: rgb(49, 57, 68);
+    color: #61dafb;
+}
+
+.Caixa{
+    background-color: #3a4652;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-bottom: 40px;
+}
+
+.Titulo{
+    margin-top:10px;
+}
