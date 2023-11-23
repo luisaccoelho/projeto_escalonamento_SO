@@ -36,6 +36,7 @@ export default class Process {
         this._tempoEspera = tempoEspera;
         this._expirou = this._deadline < 0;
         this._terminou = this._elapsedTime === this._tempExec;
+        this._expirouEm = null; //Tempo em que o processo expirou caso tenha acontecido
     }
 
     toString() {
@@ -52,10 +53,14 @@ export default class Process {
         return this;
     }
 
-    incrementaTempoEspera() {
+    incrementaTempoEspera(t=null, EDF=false) {
         this._tempoEspera++;
         this._deadline--;
         if (this._deadline < 0) {
+            if (!this._expirou&&EDF) {
+                console.log(`Processo ${this._id} expirou no tempo t=${t}!`);
+                this._expirouEm = t;
+            }
             this._expirou = true;
         }
         return this;
@@ -63,6 +68,13 @@ export default class Process {
 
     jaChegou(t){//Recebe um tempo t e retorna se o processo já chegou ou não nesse t
         return this._tempoChegada <= t;
+    }
+
+    jaExpirouEm(t){//Checa se um processo estava expirado no tempo t
+        if(this._expirouEm === null){
+            return false;
+        }
+        return t>=this._expirouEm;
     }
 
     get id() {
@@ -155,6 +167,15 @@ export default class Process {
 
     set elapsedTime(value) {
         this._elapsedTime = value;
+        return this;
+    }
+
+    get expirouEm() {
+        return this._expirouEm;
+    }
+
+    set expirouEm(value) {
+        this._expirouEm = value;
         return this;
     }
 }

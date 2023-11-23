@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabela from '../Simulacao.js'
-import './colunaTeste.css';
+import './coluna.css';
 
 function Quadrado(estado){
     let codigo = estado.estado;

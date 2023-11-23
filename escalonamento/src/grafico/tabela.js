@@ -1,5 +1,5 @@
-import Coluna from './colunaTeste.js';
-import './teste.css';
+import Coluna from './coluna.js';
+import './tabela.css';
 
 export default function Grafico(colunas){
     if (colunas.colunas instanceof Array){

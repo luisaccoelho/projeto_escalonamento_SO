@@ -66,14 +66,14 @@ export class Simulacao {
                     coluna.push(Tabela.SOBRECARGA); //CPU em sobrecarga
                     continue;
                 }
-                if(this._algoritmo === Algoritmo.EDF && processo.expirou){
-                    if(processo.terminou){
-                        coluna.push(Tabela.FINALIZADO_DL); //Processo terminado mas expirado
+                if(this._algoritmo === Algoritmo.EDF && processo.jaExpirouEm(this._estado.tempo-1)){
+                    if(processo === execucao){
+                        coluna.push(Tabela.EXECUTANDO_DL); //Processo terminado mas expirado
                         continue;
                     }
                     else{
-                        if(processo === execucao){
-                            coluna.push(Tabela.EXECUTANDO_DL); //Processo em execução mas expirado
+                        if(processo.terminou){
+                            coluna.push(Tabela.FINALIZADO_DL); //Processo em execução mas expirado
                             continue;
                         } else{
                             coluna.push(Tabela.ESPERANDO_DL); //Processo esperando mas expirado
@@ -98,6 +98,7 @@ export class Simulacao {
                 }
             }
         }
+        //console.log(`Tempo ${this._estado.tempo}, Executado ${execucao.id}, Coluna ${coluna}`);
         return coluna;
     }
 
