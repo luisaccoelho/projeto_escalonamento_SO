@@ -18,6 +18,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Simulador de Escalonamento de Processos</h1>
         <div className='Caixa'>
           <p className='Titulo'>Adicionar processo</p>
           <form className='Formulario'>
@@ -36,6 +37,23 @@ function App() {
           { id: 2, tempochegada: 1, tempoexecucao: 2, deadline: 4 },
           { id: 3, tempochegada: 3, tempoexecucao: 1, deadline: 7 }
         ]}/>
+        <div className='Caixa'>
+        <p className='Titulo'>Iniciar nova Simulação</p>
+          <form className='Formulario'>
+            <label className='Rotulo'>Duração do Quantum: </label>
+            <input className='Input' type='number' id='quantum' name='quantum' min='1' step='1'/>
+            <label className='Rotulo'>Duração da Sobrecarga: </label>
+            <input className='Input' type='number' id='sobrecarga' name='sobrecarga' min='0' step='1'/>
+            <label className='Rotulo'>Algoritmo de Escalonamento: </label>
+            <select className='Escolha' id="mySelect">
+              <option value="option1">FIFO</option>
+              <option value="option2">SJF</option>
+              <option value="option3">RR</option>
+              <option value="option3">EDF</option>
+            </select>
+            <button className='Adicionar' type='submit'>Iniciar</button>
+          </form>
+        </div>
         <div className='Gannt'>
           <IdentificadorCol processosnum={sim.processos.length}/>
           <Grafico colunas={sim.colunas} />
