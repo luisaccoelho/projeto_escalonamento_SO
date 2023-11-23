@@ -50,12 +50,18 @@ export default class Estado {
                 }
             }
         }
-        this._tempo++;//Incrementa o tempo da simulação
+        let processoIter = null;
         for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
-            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
-                this._processos[i].incrementaTempoEspera();
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera();
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera();
+                }
             }
         }
+        this._tempo++;//Incrementa o tempo da simulação
         return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
@@ -79,12 +85,18 @@ export default class Estado {
                 }
             }
         }
-        this._tempo++;//Incrementa o tempo da simulação
+        let processoIter = null;
         for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
-            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
-                this._processos[i].incrementaTempoEspera();
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera();
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera();
+                }
             }
         }
+        this._tempo++;//Incrementa o tempo da simulação
         return execucao;//Retorna o processo executado ou 0 se não houve nenhum
     }
 
@@ -134,12 +146,18 @@ export default class Estado {
                 }
             }
         }
-        this._tempo++;//Incrementa o tempo da simulação
+        let processoIter = null;
         for(let i=0;i<this._processos.length;i++){//Incrementa o tempo de espera de todos os processos que já chegaram e ainda não terminaram
-            if(!this._processos[i].terminou && this._processos[i].jaChegou(this._tempo)){
-                this._processos[i].incrementaTempoEspera();
+            processoIter = this._processos[i];
+            if(!processoIter.terminou && processoIter.jaChegou(this._tempo)){
+                processoIter.incrementaTempoEspera();
+            } else {
+                if(processoIter.terminou && processoIter===execucao) {
+                    processoIter.incrementaTempoEspera();
+                }
             }
         }
+        this._tempo++;//Incrementa o tempo da simulação
         return execucao;//Retorna o processo executado, 0 se não houve nenhum, ou -1 se estava em sobrecarga
     }
 
