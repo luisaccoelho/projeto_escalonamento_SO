@@ -36,12 +36,8 @@ export default class Process {
         this._tempoEspera = tempoEspera;
         this._expirou = this._deadline < 0;
         this._terminou = this._elapsedTime === this._tempExec;
-<<<<<<< HEAD
         this._ultimaChamada = -1;
         this._enderecoRam = -1;
-=======
-        this._expirouEm = null; //Tempo em que o processo expirou caso tenha acontecido
->>>>>>> 22e538af38c81c10bb197f6dc7c62801c2a0f58d
     }
 
     toString() {
@@ -175,30 +171,12 @@ export default class Process {
         return this;
     }
 
-<<<<<<< HEAD
-    get ultimaChamda() {
-        return this._ultimaChamada;
-    }
-
-    set ultimaChamda(value) {
-        this._ultimaChamada = value;
-        return this;
-    }
-
-    get enderecoRam() {
-        return this._enderecoRam;
-    }
-
-    set enderecoRam(value) {
-        this._enderecoRam = value;
-=======
     get expirouEm() {
         return this._expirouEm;
     }
 
     set expirouEm(value) {
         this._expirouEm = value;
->>>>>>> 22e538af38c81c10bb197f6dc7c62801c2a0f58d
         return this;
     }
 }
