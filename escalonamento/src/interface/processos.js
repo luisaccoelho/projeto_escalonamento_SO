@@ -1,3 +1,4 @@
+import React from 'react';
 import './processos.css';
 
 function ProcessoBox({processo}){
@@ -15,7 +16,7 @@ export default function Processos({lista}){
     return (
         <div className='Processos'>
             {lista.map((processo) => (
-                <ProcessoBox processo={processo} />
+                <ProcessoBox processo={processo} key={processo.id} />
             ))}
         </div>
     )

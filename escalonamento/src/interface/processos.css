@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: start;
     margin: 0 30px;
+    width: 200px;
+    height: 209px;;
 }
 
 .Processos{
@@ -13,6 +15,7 @@
     width: 100%;
     background-color: #3a4652;
     margin-bottom: 40px;
+    overflow-x: auto;
 }
 
 .Atributo{
