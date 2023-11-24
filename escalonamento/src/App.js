@@ -57,7 +57,7 @@ function App() {
     for(let i = 0; i<processos.length; i++){
       processosSim.push(new Process(processos[i].id,processos[i].tempochegada,processos[i].tempoexecucao,processos[i].deadline));
     }
-    const simula = new Simulacao(algoritmo, processosSim, quantum, sobrecarga);
+    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum);
     setSim(simula);
     //setSim(new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2));
   }
