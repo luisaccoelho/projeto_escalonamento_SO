@@ -10,20 +10,36 @@ export default class Process {
         tempoEspera = 0
     ) {
         this._id = id;
+        if(tempoChegada === null
+            || tempoChegada === undefined
+            || tempoChegada === '')
+            tempoChegada = 0;
         tempoChegada = parseInt(tempoChegada);
         if(tempoChegada<0){
             this._tempoChegada = 0;
         } else{
             this._tempoChegada = tempoChegada;
         }
+        if(tempExec === null
+            || tempExec === undefined
+            || tempExec === '')
+            tempExec = 1;
         tempExec = parseInt(tempExec);
         if(tempExec<1){
             this._tempExec = 1;
         } else{
             this._tempExec = tempExec;
         }
+        if(deadline === null
+            || deadline === undefined
+            || deadline === '')
+            deadline = 1;
         this._deadline = parseInt(deadline);
         //this._prioridade = parseInt(prioridade);
+        if(tamanho === null
+            || tamanho === undefined
+            || tamanho === '')
+            tamanho = 1;
         tamanho = parseInt(tamanho);
         if(tamanho<1){
             this._tamanho = 1;
