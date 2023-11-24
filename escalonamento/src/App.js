@@ -24,8 +24,9 @@ function App() {
     const chegada = document.getElementById('chegada').value;
     const execucao = document.getElementById('execucao').value;
     const deadline = document.getElementById('deadline').value;
+    const tamanho = document.getElementById('tamanho').value;
     const processosLista = [...processos];
-    processosLista.push({id: processos.length, tempochegada: chegada, tempoexecucao: execucao, deadline: deadline});
+    processosLista.push({id: processos.length, tempochegada: chegada, tempoexecucao: execucao, deadline: deadline, tamanho: tamanho});
     setProcessos(processosLista);
     atualiza();
   }
@@ -80,6 +81,8 @@ function App() {
             <input className='Input' type='number' id='execucao' name='execucao' min='1' step='1'/>
             <label className='Rotulo'>Deadline: </label>
             <input className='Input' type='number' id='deadline' name='deadline' min='0' step='1'/>
+            <label className='Rotulo'>Tamanho: </label>
+            <input className='Input' type='number' id='tamanho' name='tamanho' min='1' step='1'/>
             <button className='Adicionar' type='submit'>Adicionar</button>
           </form>
         </div>
