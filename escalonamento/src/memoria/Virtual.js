@@ -1,9 +1,5 @@
 import Process from "../Process";
 
-function compare(processo1, processo2){
-    return processo1.id-processo2.id;
-}
-
 export default class Virtual {
     constructor(processos=[]){
         this._processos = processos;
@@ -12,7 +8,12 @@ export default class Virtual {
 
     atualizaVirtual(){
         for (let i=0; i<this._processos.length;i++){
-            this._enderecos[this._processos[i].id] = this._processos[i].enderrecoRam;
+            if (this._processos[i].id != -1){
+                this._enderecos[this._processos[i].id] = this._processos[i].enderrecoRam;
+            }
         }
+        Object.entries(this._enderecos).sort((a,b) => a[0]-b[0]);
     }
+
+    
 }

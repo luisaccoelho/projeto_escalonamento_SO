@@ -1,9 +1,14 @@
+export const AlgoritmoMemoria = {
+    FIFO: 1,
+    MRU: 2
+};
+
 export default class Ram{
-    constructor(processos=[],fila=[],t=0,algoritmo){//O t é o tempo atual da simulação
-        this._ram = fila;//Estado atual da RAM
+    constructor(processos=[],algoritmo,ram=[],t=0){//O t é o tempo atual da simulação
+        this._ram = ram;//Estado atual da RAM
         this._processos = processos;//Todos os processos que ainda não chegaram
         if(t===0){//Se o tempo é igual a 0, cria a fila do 0 e já adiciona os processos que chegam no tempo 0 à fila
-            this.chegam(0);
+            this.atualizaRam(0);
         }
         this._tamanho = 400000;
         this._ocupado = 0;
@@ -11,13 +16,18 @@ export default class Ram{
     }
 
     entra(processo){//Adiciona um processo na RAM, caso não haja espaço sobrescreve de acordo com o algoritmo em vigor
-        if(this._tamanho-this._ocupado>=processo.tamamho) {//Um processo só é adicionado caso haja espaço para todas as suas páginas
+        console.log('Espaço disponível: ' + (this._tamanho - this._ocupado));
+        console.log('Tamanho do processo: ' + processo.tamamho);
+        if(this._tamanho - this._ocupado >= processo.tamamho) {//Um processo só é adicionado caso haja espaço para todas as suas páginas
+            console.log('RAM com espaço de sobra!');
             this._ram.push(processo); //Se há espaço, apenas coloca o processo no final da fila
             processo.enderecoRam = this._ram.length-1;
             this._ocupado += processo.tamamho;
         } else {
+            console.log('Sem espaço na RAM, retirando um processo...');
             switch (this._algoritmo){
-                case 'FIFO':
+                case AlgoritmoMemoria.FIFO:
+                    console.log('Algoritmo: FIFO');
                     let primeiro = this._ram[0]
                     for(let i=0;i<this._ram.length;i++){
                         if(this._ram[i].tempoChegada<primeiro.tempoChegada){
@@ -26,7 +36,8 @@ export default class Ram{
                     }
                     this.substitui(primeiro, processo);//Tira o processo que entrou há mais tempo (o primeiro da fila)
                     return this._ram;
-                case 'MRU':
+                case AlgoritmoMemoria.MRU:
+                    console.log('Algoritmo: MRU');
                     let menosRecentementeUtilizado = this._ram[0];
                     for(let i=0;i<this._ram.length;i++){
                         if(this._ram[i].ultimaChamada<menosRecentementeUtilizado){ //Procura o processo chamado a menos tempo

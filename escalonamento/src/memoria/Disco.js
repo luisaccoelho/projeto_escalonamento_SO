@@ -9,4 +9,8 @@ export default class Disco {
     atualizaDisco(t){
         this._processos.chegam(t);
     }
+
+    get processos(){
+        return this._processos;
+    }
 }
