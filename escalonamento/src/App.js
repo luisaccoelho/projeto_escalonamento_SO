@@ -68,7 +68,7 @@ function App() {
     }
     let processosSim = [];
     for(let i = 0; i<processos.length; i++){
-      processosSim.push(new Process(processos[i].id,processos[i].tempochegada,processos[i].tempoexecucao,processos[i].deadline));
+      processosSim.push(new Process(processos[i].id,processos[i].tempochegada,processos[i].tempoexecucao,processos[i].deadline,processos[i].tamanho));
     }
     const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum);
     setSim(simula);
