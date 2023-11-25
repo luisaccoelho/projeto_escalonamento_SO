@@ -25,27 +25,26 @@ export default class Ram{
             this._ocupado += processo.tamamho;
         } else {
             console.log('Sem espaço na RAM, retirando um processo...');
-            switch (this._algoritmo){
-                case AlgoritmoMemoria.FIFO:
-                    console.log('Algoritmo: FIFO');
-                    let primeiro = this._ram[0]
-                    for(let i=0;i<this._ram.length;i++){
-                        if(this._ram[i].tempoChegada<primeiro.tempoChegada){
-                            primeiro = this._ram[i];
-                        }
+            if (this._algoritmo === AlgoritmoMemoria.FIFO) {
+                console.log('Algoritmo: FIFO');
+                let primeiro = this._ram[0]
+                for(let i=0;i<this._ram.length;i++){
+                    if(this._ram[i].tempoChegada<primeiro.tempoChegada){
+                        primeiro = this._ram[i];
                     }
-                    this.substitui(primeiro, processo);//Tira o processo que entrou há mais tempo (o primeiro da fila)
-                    return this._ram;
-                case AlgoritmoMemoria.MRU:
-                    console.log('Algoritmo: MRU');
-                    let menosRecentementeUtilizado = this._ram[0];
-                    for(let i=0;i<this._ram.length;i++){
-                        if(this._ram[i].ultimaChamada<menosRecentementeUtilizado){ //Procura o processo chamado a menos tempo
-                            menosRecentementeUtilizado = this._ram[i];
-                        }
+                }
+                this.substitui(primeiro, processo);//Tira o processo que entrou há mais tempo (o primeiro da fila)
+                return this._ram;
+            } else {
+                console.log('Algoritmo: MRU');
+                let menosRecentementeUtilizado = this._ram[0];
+                for(let i=0;i<this._ram.length;i++){
+                    if(this._ram[i].ultimaChamada<menosRecentementeUtilizado){ //Procura o processo chamado a menos tempo
+                        menosRecentementeUtilizado = this._ram[i];
                     }
-                    this.substitui(menosRecentementeUtilizado, processo); //Retira o processo utilizado a menos tempo
-                    return this._ram;
+                }
+                this.substitui(menosRecentementeUtilizado, processo); //Retira o processo utilizado a menos tempo
+                return this._ram;
             } 
         }
         return this._ram;
