@@ -7,6 +7,7 @@ import Processos from './interface/processos.js';
 import './grafico/grafico.css';
 import './interface/form.css';
 import { useState } from 'react';
+import Turnaround from './interface/turnaround.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -15,7 +16,7 @@ function atualizar(variavel,funcao){//Função que atualiza o estado de uma vari
 function App() {
   const [processos, setProcessos] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [sim, setSim] = useState(new Simulacao());//[processos,quantum,sobrecarga,algoritmo
+  const [sim, setSim] = useState(new Simulacao());
   const atualiza = () => {
     atualizar(update,setUpdate);
   }
@@ -92,7 +93,6 @@ function App() {
     sim.transicao();
     atualiza();
   }
-  
   return (
     <div className="App">
       <header className="App-header">
@@ -133,11 +133,11 @@ function App() {
           <IdentificadorCol processosnum={sim.processos.length}/>
           <Grafico colunas={sim.colunas} />
         </div>
+        <Turnaround turnaround={sim.turnaroundMedio} finalizado={sim.terminou()}/>
         <div className='Controles'>
           <button className='Controle' onClick={avancaCiclo}>Avançar um ciclo</button>
           <button className='Controle' onClick={finalizaSim}>Avançar até o final da simulação</button>
         </div>
-        
       </header>
     </div>
   );
