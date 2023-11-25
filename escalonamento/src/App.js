@@ -61,7 +61,7 @@ function App() {
     setSim(simula);
     //setSim(new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2));
   }
-  let colunaA = [Tabela.ACHEGAR, Tabela.EXECUTANDO, Tabela.ESPERANDO, Tabela.FINALIZADO, Tabela.SOBRECARGA, Tabela.EXECUTANDO_DL, Tabela.ESPERANDO_DL, Tabela.FINALIZADO_DL];
+  //let colunaA = [Tabela.ACHEGAR, Tabela.EXECUTANDO, Tabela.ESPERANDO, Tabela.FINALIZADO, Tabela.SOBRECARGA, Tabela.EXECUTANDO_DL, Tabela.ESPERANDO_DL, Tabela.FINALIZADO_DL];
   //let sim = new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2);
   let i = 0;
   while(!sim.terminou()&&i<50){
@@ -81,13 +81,13 @@ function App() {
           <p className='Titulo'>Adicionar processo</p>
           <form className='Formulario'  onSubmit={addProcesso}>
             <label className='Rotulo'>Tempo de chegada: </label>
-            <input className='Input' type='number' id='chegada' name='chegada' min='0' step='1'/>
+            <input className='Input' type='number' id='chegada' name='chegada' placeholder='0' min='0' step='1'/>
             <label className='Rotulo'>Tempo de execução: </label>
-            <input className='Input' type='number' id='execucao' name='execucao' min='1' step='1'/>
+            <input className='Input' type='number' id='execucao' name='execucao' placeholder='1' min='1' step='1'/>
             <label className='Rotulo'>Deadline: </label>
-            <input className='Input' type='number' id='deadline' name='deadline' min='0' step='1'/>
+            <input className='Input' type='number' id='deadline' name='deadline' placeholder='1' min='1' step='1'/>
             <label className='Rotulo'>Tamanho: </label>
-            <input className='Input' type='number' id='tamanho' name='tamanho' min='1' step='1'/>
+            <input className='Input' type='number' id='tamanho' name='tamanho' placeholder='1' min='1' step='1'/>
             <button className='Adicionar' type='submit'>Adicionar</button>
           </form>
         </div>
@@ -96,9 +96,9 @@ function App() {
         <p className='Titulo'>Iniciar nova Simulação</p>
           <form className='Formulario' onSubmit={iniciarSimulacao}>
             <label className='Rotulo'>Duração do Quantum: </label>
-            <input className='Input' type='number' id='quantum' name='quantum' min='1' step='1'/>
+            <input className='Input' type='number' id='quantum' name='quantum' placeholder='1' min='1' step='1'/>
             <label className='Rotulo'>Duração da Sobrecarga: </label>
-            <input className='Input' type='number' id='sobrecarga' name='sobrecarga' min='0' step='1'/>
+            <input className='Input' type='number' id='sobrecarga' name='sobrecarga' placeholder='0' min='0' step='1'/>
             <label className='Rotulo'>Algoritmo de Escalonamento: </label>
             <select className='Escolha' id="algoritmo">
               <option value="FIFO">FIFO</option>

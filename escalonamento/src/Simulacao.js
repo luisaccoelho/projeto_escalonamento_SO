@@ -21,9 +21,13 @@ export const Tabela = { //Enumeração dos estados dos processos na tabela
 export class Simulacao {
     constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1){
         this._estado = new Estado(processos); //Estado atual da simulação
+        if(tamSobrecarga===''||tamSobrecarga===null||tamSobrecarga===undefined)
+            tamSobrecarga = 0; //Se a sobrecarga for vazia ou nula, ela é 0
         let sobrecarga = parseInt(tamSobrecarga);
         if(sobrecarga<0) sobrecarga = 0; //Se a sobrecarga for negativa, ela é 0
         this._tamSobrecarga = sobrecarga; //Duração total da sobrecarga
+        if(tamQuantum===''||tamQuantum===null||tamQuantum===undefined)
+            tamQuantum = 1; //Se o quantum for vazio ou nulo, ele é 1
         let quantum = parseInt(tamQuantum);
         if(quantum<1) quantum = 1; //Se o quantum for menor que 1, ele é 1
         this._tamQuantum = quantum;//Duração total do quantum
