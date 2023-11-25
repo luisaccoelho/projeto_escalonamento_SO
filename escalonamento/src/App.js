@@ -21,16 +21,28 @@ function App() {
   }
   const addProcesso = (e) => {//Função chamada quando um novo processo é adicionado
     e.preventDefault();
-    const chegada = document.getElementById('chegada').value;
-    const execucao = document.getElementById('execucao').value;
-    const deadline = document.getElementById('deadline').value;
-    const tamanho = document.getElementById('tamanho').value;
+    let chegada = document.getElementById('chegada').value;
+    let execucao = document.getElementById('execucao').value;
+    let deadline = document.getElementById('deadline').value;
+    let tamanho = document.getElementById('tamanho').value;
+    if(chegada===''||chegada===null||chegada===undefined){//Se o usuário não insere os valores, valores padrão são utilizados
+      chegada = 0;
+    }
+    if(execucao===''||execucao===null||execucao===undefined){
+      execucao = 1;
+    }
+    if(deadline===''||deadline===null||deadline===undefined){
+      deadline = 1;
+    }
+    if(tamanho===''||tamanho===null||tamanho===undefined){
+      tamanho = 1;
+    }
     const processosLista = [...processos];
     processosLista.push({id: processos.length, tempochegada: chegada, tempoexecucao: execucao, deadline: deadline, tamanho: tamanho});
     setProcessos(processosLista);
     atualiza();
   }
-  const iniciarSimulacao = (e) => {//Função chamada quando uma nova simulação é iniciada
+  const iniciarSimulacao = (e) => {//Função chamada quando uma nova simulação é iniciada, pega os valores dos inputs e inicia a simulação
     e.preventDefault();
     const quantum = document.getElementById('quantum').value;
     const sobrecarga = document.getElementById('sobrecarga').value;
@@ -63,16 +75,27 @@ function App() {
   }
   //let colunaA = [Tabela.ACHEGAR, Tabela.EXECUTANDO, Tabela.ESPERANDO, Tabela.FINALIZADO, Tabela.SOBRECARGA, Tabela.EXECUTANDO_DL, Tabela.ESPERANDO_DL, Tabela.FINALIZADO_DL];
   //let sim = new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2);
-  let i = 0;
-  while(!sim.terminou()&&i<50){
+  
+  const finalizaSim = () => {//Avança até o final da simulação. Limite de 400 ciclos para evitar loops infinitos
+    let i = 0;
+    while(!sim.terminou()&&i<400){
+      sim.transicao();
+      i++;
+    }
+    atualiza();
+  }
+
+  const avancaCiclo = () => {//Avança um ciclo na simulação
+    if(sim.terminou()){
+      return;
+    }
     sim.transicao();
     // disco.atualizaDisco(i);
     // ram.atualizaRam(i);
     // virtual.atualizaVirtual();
-    i++;
+    atualiza();
   }
-  // console.log('Disco: ' + disco.processos.fila);
-  // console.log('RAM: ' + ram.estadoRam);
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -111,7 +134,7 @@ function App() {
         </div>
         <div className='Gannt'>
           <IdentificadorCol processosnum={sim.processos.length}/>
-          <Grafico colunas={sim.colunas}/>
+          <Grafico colunas={sim.colunas} />
         </div>
       </header>
     </div>
