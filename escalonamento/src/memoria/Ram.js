@@ -35,6 +35,8 @@ export default class Ram{
                             primeiro = this._ram[i];
                         }
                     }
+                    console.log('Processo a ser retirado: ' + primeiro);
+                    console.log('Processo que vai entrar: ' + processo);
                     this.substitui(primeiro, processo);//Tira o processo que entrou há mais tempo (o primeiro da fila)
                     return this._ram;
                 case MemoAlgoritmo.MRU:
@@ -66,6 +68,7 @@ export default class Ram{
             console.log('Olhando processo: ' + this._ram[i]);
             if(this._ram[i]===processoAntigo){
                 this._ram.splice(i, 1, processoNovo);
+                console.log('Processo novo: ' + processoNovo);
                 processoNovo.enderecoRam = processoAntigo.enderecoRam;
                 console.log('Endereço RAM: ' + processoNovo.enderecoRam);
                 processoAntigo.enderecoRam = -1;

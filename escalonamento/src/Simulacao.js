@@ -54,6 +54,7 @@ export class Simulacao {
                 break;
             case Algoritmo.RR:
                 execucao = this._estado.transicaoRoundRobin(this._tamQuantum, this._tamSobrecarga);
+                console.log('Execução: ' + execucao);
                 this._disco.atualizaDisco(this._estado.tempo);
                 break;
             case Algoritmo.EDF:
@@ -70,9 +71,7 @@ export class Simulacao {
     coluna(execucao){//Retorna um array com os estados dos processos, recebe o processo que foi executado
         let processos = this._estado.processos;
         let coluna = [];
-        this._ram.entra(execucao); //coloca o processo que vai ser executado na RAM
-        execucao.ultimaChamada = this._estado.tempo-1;
-        this._virtual.atualizaVirtual(this._ram.ram);
+        console.log('Processo em execução: ' + execucao);
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
             if(!processo.jaChegou(this._estado.tempo-1)){
@@ -85,12 +84,15 @@ export class Simulacao {
                 }
                 if(this._algoritmo === Algoritmo.EDF && processo.jaExpirouEm(this._estado.tempo-1)){
                     if(processo === execucao){
-                        coluna.push(Tabela.EXECUTANDO_DL); //Processo terminado mas expirado
+                        coluna.push(Tabela.EXECUTANDO_DL); //Processo em execução mas expirado
+                        this._ram.entra(processo); //Coloca o processo em execução na RAM
+                        processo.ultimaChamada = this._estado.tempo-1; //Atualiza a última chamada do processo
+                        this._virtual.atualizaVirtual(this._ram.ram); //Atualiza a virtual de acordo com o estado atual da RAM
                         continue;
                     }
                     else{
                         if(processo.terminou){
-                            coluna.push(Tabela.FINALIZADO_DL); //Processo em execução mas expirado
+                            coluna.push(Tabela.FINALIZADO_DL); //Processo finalizado mas expirado
                             continue;
                         } else{
                             coluna.push(Tabela.ESPERANDO_DL); //Processo esperando mas expirado
@@ -101,6 +103,9 @@ export class Simulacao {
                 else{
                     if(processo === execucao){
                         coluna.push(Tabela.EXECUTANDO); //Processo em execução
+                        this._ram.entra(processo); //Coloca o processo em execução na RAM
+                        processo.ultimaChamada = this._estado.tempo-1; //Atualiza a última chamada do processo
+                        this._virtual.atualizaVirtual(this._ram.ram); //Atualiza a virtual de acordo com o estado atual da RAM
                         continue;
                     }
                     else{
