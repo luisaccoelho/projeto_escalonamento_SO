@@ -13,6 +13,7 @@ import Ram from './memoria/Ram.js';
 import Virtual from './memoria/Virtual.js';
 import Turnaround from './interface/turnaround.js';
 import RamVisualizacao from './memoria/visualização/ramVisualizacao.js';
+import DiscoVisualizacao from './memoria/visualização/discoVisualizacao.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -127,7 +128,7 @@ function App() {
             <label className='Rotulo'>Deadline: </label>
             <input className='Input' type='number' id='deadline' name='deadline' placeholder='1' min='1' step='1'/>
             <label className='Rotulo'>Tamanho: </label>
-            <input className='Input' type='number' id='tamanho' name='tamanho' placeholder='1' min='1' step='1'/>
+            <input className='Input' type='number' id='tamanho' name='tamanho' placeholder='1' min='1' max='10' step='1'/>
             <button className='Adicionar' type='submit'>Adicionar</button>
           </form>
         </div>
@@ -163,7 +164,10 @@ function App() {
           <button className='Controle' onClick={avancaCiclo}>Avançar um ciclo</button>
           <button className='Controle' onClick={finalizaSim}>Avançar até o final da simulação</button>
         </div>
-        <RamVisualizacao ram={sim.ram}/>
+        <div className='Memoria'>
+          <DiscoVisualizacao disco={sim.disco}/>
+          <RamVisualizacao ram={sim.ram}/>
+        </div>
       </header>
     </div>
   );

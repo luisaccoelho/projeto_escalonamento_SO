@@ -46,20 +46,19 @@ export class Simulacao {
         switch(this._algoritmo){
             case Algoritmo.SJF:
                 execucao = this._estado.transicaoSJF();
-                this._disco.atualizaDisco(this._estado.tempo);
+                this._disco.atualizaDisco(this._estado.tempo-1);
                 break;
             case Algoritmo.FIFO:
                 execucao = this._estado.transicaoFIFO();
-                this._disco.atualizaDisco(this._estado.tempo);
+                this._disco.atualizaDisco(this._estado.tempo-1);
                 break;
             case Algoritmo.RR:
                 execucao = this._estado.transicaoRoundRobin(this._tamQuantum, this._tamSobrecarga);
-                console.log('Execução: ' + execucao);
-                this._disco.atualizaDisco(this._estado.tempo);
+                this._disco.atualizaDisco(this._estado.tempo-1);
                 break;
             case Algoritmo.EDF:
                 execucao = this._estado.transicaoEDF(this._tamQuantum, this._tamSobrecarga);
-                this._disco.atualizaDisco(this._estado.tempo);
+                this._disco.atualizaDisco(this._estado.tempo-1);
                 break;
             default:
                 throw new Error("Algoritmo inválido");
