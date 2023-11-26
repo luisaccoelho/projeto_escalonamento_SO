@@ -1,0 +1,28 @@
+.Fileira{
+    display: flex;
+    flex-direction: row;
+}
+.TabelaRam{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    padding: 0 10px 10px 10px;
+    margin: 0;;
+}
+.Celula{
+    width: 45px;
+    height: 45px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #282c34;
+}
+
+.RamAlternativa{
+    background-color: #3a4652;
+    border-radius: 20px;
+}
+
+.TituloRam{
+    margin: 7px 0;
+}
