@@ -57,7 +57,7 @@ export default class Process {
     }
 
     toString() {
-        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\n`;
+        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\nÚltima chamada: ${this._ultimaChamada}\n`;
     }   // não conta Prioridade
 
     getTurnaround() {
@@ -193,6 +193,15 @@ export default class Process {
 
     set expirouEm(value) {
         this._expirouEm = value;
+        return this;
+    }
+
+    get ultimaChamada() {
+        return this._ultimaChamada;
+    }
+
+    set ultimaChamada(value) {
+        this._ultimaChamada = value;
         return this;
     }
 }

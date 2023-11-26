@@ -1,4 +1,7 @@
 import Estado from "./Estado";
+import Disco from "./memoria/Disco";
+import Ram from "./memoria/Ram";
+import Virtual from "./memoria/Virtual";
 
 export const Algoritmo = { //Enumeração dos algoritmos de escalonamento
     SJF: 0,
@@ -19,7 +22,7 @@ export const Tabela = { //Enumeração dos estados dos processos na tabela
 }
 
 export class Simulacao {
-    constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1){
+    constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1, disco, ram, virtual){
         this._estado = new Estado(processos); //Estado atual da simulação
         if(tamSobrecarga===''||tamSobrecarga===null||tamSobrecarga===undefined)
             tamSobrecarga = 0; //Se a sobrecarga for vazia ou nula, ela é 0
@@ -32,6 +35,9 @@ export class Simulacao {
         if(quantum<1) quantum = 1; //Se o quantum for menor que 1, ele é 1
         this._tamQuantum = quantum;//Duração total do quantum
         this._algoritmo = algoritmo;//Algoritmo de escalonamento
+        this._disco = disco;
+        this._ram = ram;
+        this._virtual = virtual;
         this._colunas=[];//Array de colunas da tabela
     }
 
@@ -40,15 +46,19 @@ export class Simulacao {
         switch(this._algoritmo){
             case Algoritmo.SJF:
                 execucao = this._estado.transicaoSJF();
+                this._disco.atualizaDisco(this._estado.tempo);
                 break;
             case Algoritmo.FIFO:
                 execucao = this._estado.transicaoFIFO();
+                this._disco.atualizaDisco(this._estado.tempo);
                 break;
             case Algoritmo.RR:
                 execucao = this._estado.transicaoRoundRobin(this._tamQuantum, this._tamSobrecarga);
+                this._disco.atualizaDisco(this._estado.tempo);
                 break;
             case Algoritmo.EDF:
                 execucao = this._estado.transicaoEDF(this._tamQuantum, this._tamSobrecarga);
+                this._disco.atualizaDisco(this._estado.tempo);
                 break;
             default:
                 throw new Error("Algoritmo inválido");
@@ -60,6 +70,9 @@ export class Simulacao {
     coluna(execucao){//Retorna um array com os estados dos processos, recebe o processo que foi executado
         let processos = this._estado.processos;
         let coluna = [];
+        this._ram.entra(execucao); //coloca o processo que vai ser executado na RAM
+        execucao.ultimaChamada = this._estado.tempo-1;
+        this._virtual.atualizaVirtual();
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
             if(!processo.jaChegou(this._estado.tempo-1)){

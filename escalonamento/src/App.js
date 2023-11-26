@@ -1,5 +1,6 @@
 import Process from './Process.js';
 import {Simulacao, Algoritmo, Tabela} from './Simulacao.js';
+import { MemoAlgoritmo } from './memoria/Ram.js';
 import './App.css';
 import Grafico from './grafico/tabela.js';
 import IdentificadorCol from './grafico/grafico.js';
@@ -7,6 +8,10 @@ import Processos from './interface/processos.js';
 import './grafico/grafico.css';
 import './interface/form.css';
 import { useState } from 'react';
+import Disco from './memoria/Disco.js';
+import Ram from './memoria/Ram.js';
+import Virtual from './memoria/Virtual.js';
+import Turnaround from './interface/turnaround.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -47,7 +52,9 @@ function App() {
     const quantum = document.getElementById('quantum').value;
     const sobrecarga = document.getElementById('sobrecarga').value;
     const algoritmoString = document.getElementById('algoritmo').value;
+    const memoAlgoritmoString = document.getElementById('memoAlgoritmo').value;
     let algoritmo = 0;
+    let memoAlgoritmo = 0;
     switch(algoritmoString){
       case 'FIFO':
         algoritmo = Algoritmo.FIFO;
@@ -65,16 +72,27 @@ function App() {
         throw new Error('Algoritmo não reconhecido');
         break;
     }
+    switch(memoAlgoritmoString){
+      case 'FIFO':
+        memoAlgoritmo = MemoAlgoritmo.FIFO;
+        break;
+      case 'MRU':
+        memoAlgoritmo = MemoAlgoritmo.MRU;
+        break;
+      default:
+        throw new Error('Algoritmo da memória não reconhecido');
+        break;
+    }
     let processosSim = [];
     for(let i = 0; i<processos.length; i++){
-      processosSim.push(new Process(processos[i].id,processos[i].tempochegada,processos[i].tempoexecucao,processos[i].deadline));
+      processosSim.push(new Process(processos[i].id,processos[i].tempochegada,processos[i].tempoexecucao,processos[i].deadline,processos[i].tamanho));
     }
-    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum);
+    const disco = new Disco(processosSim);
+    const ram = new Ram(processosSim, memoAlgoritmo);
+    const virtual = new Virtual(processosSim);
+    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum, disco, ram, virtual);
     setSim(simula);
-    //setSim(new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2));
   }
-  //let colunaA = [Tabela.ACHEGAR, Tabela.EXECUTANDO, Tabela.ESPERANDO, Tabela.FINALIZADO, Tabela.SOBRECARGA, Tabela.EXECUTANDO_DL, Tabela.ESPERANDO_DL, Tabela.FINALIZADO_DL];
-  //let sim = new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2);
   
   const finalizaSim = () => {//Avança até o final da simulação. Limite de 400 ciclos para evitar loops infinitos
     let i = 0;
@@ -90,9 +108,6 @@ function App() {
       return;
     }
     sim.transicao();
-    // disco.atualizaDisco(i);
-    // ram.atualizaRam(i);
-    // virtual.atualizaVirtual();
     atualiza();
   }
   
@@ -129,12 +144,22 @@ function App() {
               <option value="RR">RR</option>
               <option value="EDF">EDF</option>
             </select>
+            <label className='Rotulo'>Algoritmo da Memória: </label>
+            <select className='Escolha' id='memoAlgoritmo'>
+              <option value="FIFO">FIFO</option>
+              <option value="MRU">MRU</option>
+            </select>
             <button className='Adicionar' type='submit'>Iniciar</button>
           </form>
         </div>
         <div className='Gannt'>
           <IdentificadorCol processosnum={sim.processos.length}/>
           <Grafico colunas={sim.colunas} />
+        </div>
+        <Turnaround turnaround={sim.turnaroundMedio} finalizado={sim.terminou()}/>
+        <div className='Controles'>
+          <button className='Controle' onClick={avancaCiclo}>Avançar um ciclo</button>
+          <button className='Controle' onClick={finalizaSim}>Avançar até o final da simulação</button>
         </div>
       </header>
     </div>
