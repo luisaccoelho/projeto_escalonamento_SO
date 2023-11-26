@@ -4,6 +4,7 @@ export default class Virtual {
     constructor(processos=[]){
         this._processos = processos;
         this._enderecos = {};
+        this._enderecosArrayOrdenado = [];
     }
 
     atualizaVirtual(processos){
@@ -20,7 +21,11 @@ export default class Virtual {
             }
         }
         Object.entries(this._enderecos).sort((a,b) => a[0]-b[0]);
+        this._enderecosArrayOrdenado = Object.values(this._enderecos);
     }
 
+    get enderecosArrayOrdenado(){
+        return this._enderecosArrayOrdenado;
+    }
     
 }

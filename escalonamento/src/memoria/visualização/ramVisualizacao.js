@@ -3,21 +3,17 @@ import Ram from "../Ram";
 import Process from "../../Processo";
 import './memoria.css';
 
-function Linha(processo){
-    console.log(JSON.stringify(processo));
+function LinhaRam(processo){
     return <div className="ProcessoMemoria">Processo {processo.processo.id}</div>
 }
 
 function RamVisualizacao({ram}){ //Recebe a RAM da simulação e acessa o estado atual dela
-    console.log('Estado da RAM da Simulação: ' + ram.ram);
-    console.log('Tipo do estado atual da RAM: ' + typeof ram.ram);
-    console.log('Tipo do do que tem dentro da RAM: ' + ram.ram[0]);
     return (
         <div className="MemoriaItem">
             <div className="Caixa">
                 <p className="Title">RAM</p>
                 {ram.ram.map((processo, index) => (
-                    <Linha key={index} processo={processo}/>
+                    <LinhaRam key={index} processo={processo}/>
                 ))}
             </div>
         </div>
