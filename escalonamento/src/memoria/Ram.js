@@ -8,9 +8,9 @@ export default class Ram{
         this._processos = processos;//Todos os processos que ainda não chegaram
         this._algoritmo = algoritmo;
         this._ram = [];//Estado atual da RAM
-        this._tamanho=20;
+        this._tamanho=200000;
         this._ocupado=0;
-        this._livre=20;
+        this._livre=200000;
     }
 
     entra(processo){//Adiciona um processo na RAM, caso não haja espaço sobrescreve de acordo com o algoritmo em vigor
@@ -18,11 +18,11 @@ export default class Ram{
         console.log('Espaço livre: ' + this._livre);
         console.log('Tamanho do processo: ' + processo.tamanho);
         if(this._ram.includes(processo)) return this._ram;
-        if(this._livre >= processo.tamanho) {//Um processo só é adicionado caso haja espaço para todas as suas páginas
+        if(this._livre >= processo.tamanho*4000) {//Um processo só é adicionado caso haja espaço para todas as suas páginas
             console.log('RAM com espaço de sobra!');
             this._ram.push(processo); //Se há espaço, apenas coloca o processo no final da fila
             processo.enderecoRam = this._ram.length-1;
-            this._ocupado += processo.tamanho;
+            this._ocupado += processo.tamanho*4000;
             this._livre = this._tamanho - this._ocupado;
         } else {
             console.log('Sem espaço na RAM, retirando um processo...');
