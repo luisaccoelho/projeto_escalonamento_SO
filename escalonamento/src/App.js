@@ -12,6 +12,7 @@ import Disco from './memoria/Disco.js';
 import Ram from './memoria/Ram.js';
 import Virtual from './memoria/Virtual.js';
 import Turnaround from './interface/turnaround.js';
+import RamVisualizacao from './memoria/visualização/ramVisualizacao.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -20,7 +21,7 @@ function atualizar(variavel,funcao){//Função que atualiza o estado de uma vari
 function App() {
   const [processos, setProcessos] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [sim, setSim] = useState(new Simulacao());//processos,quantum,sobrecarga,algoritmo
+  const [sim, setSim] = useState(new Simulacao());//processos,quantum,sobrecarga,algoritmo,disco,ram,virtual
   const atualiza = () => {
     atualizar(update,setUpdate);
   }
@@ -111,6 +112,7 @@ function App() {
     atualiza();
   }
   
+  console.log('RAM: ' + sim.ram);
   return (
     <div className="App">
       <header className="App-header">
@@ -161,6 +163,7 @@ function App() {
           <button className='Controle' onClick={avancaCiclo}>Avançar um ciclo</button>
           <button className='Controle' onClick={finalizaSim}>Avançar até o final da simulação</button>
         </div>
+        <RamVisualizacao ram={sim.ram}/>
       </header>
     </div>
   );

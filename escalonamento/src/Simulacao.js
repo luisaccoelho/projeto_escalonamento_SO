@@ -22,7 +22,7 @@ export const Tabela = { //Enumeração dos estados dos processos na tabela
 }
 
 export class Simulacao {
-    constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1, disco, ram, virtual){
+    constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1, disco=new Disco(), ram=new Ram(), virtual=new Virtual()){
         this._estado = new Estado(processos); //Estado atual da simulação
         if(tamSobrecarga===''||tamSobrecarga===null||tamSobrecarga===undefined)
             tamSobrecarga = 0; //Se a sobrecarga for vazia ou nula, ela é 0
@@ -185,5 +185,17 @@ export class Simulacao {
 
     set algoritmo(algoritmo){
         this._algoritmo = algoritmo;
+    }
+
+    get ram(){
+        return this._ram;
+    }
+
+    get disco(){
+        return this._disco;
+    }
+
+    get virtual(){
+        return this._virtual;
     }
 }

@@ -4,7 +4,7 @@ export const MemoAlgoritmo = {
 };
 
 export default class Ram{
-    constructor(processos=[],algoritmo,t=0){//O t é o tempo atual da simulação
+    constructor(processos=[],algoritmo=MemoAlgoritmo.FIFO,t=0){//O t é o tempo atual da simulação
         this._processos = processos;//Todos os processos que ainda não chegaram
         this._algoritmo = algoritmo;
         this._ram = [];//Estado atual da RAM
