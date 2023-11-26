@@ -204,4 +204,13 @@ export default class Process {
         this._ultimaChamada = value;
         return this;
     }
+
+    get enderecoRam() {
+        return this._enderecoRam;
+    }
+
+    set enderecoRam(value) {
+        this._enderecoRam = value;
+        return this;
+    }
 }

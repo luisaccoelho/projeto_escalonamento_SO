@@ -72,7 +72,7 @@ export class Simulacao {
         let coluna = [];
         this._ram.entra(execucao); //coloca o processo que vai ser executado na RAM
         execucao.ultimaChamada = this._estado.tempo-1;
-        this._virtual.atualizaVirtual();
+        this._virtual.atualizaVirtual(this._ram.ram);
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
             if(!processo.jaChegou(this._estado.tempo-1)){

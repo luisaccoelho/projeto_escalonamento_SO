@@ -57,14 +57,17 @@ export default class Ram{
         return this._ram;
     }
 
-    substitui(processoAntigo, processoNovo){//Remove processo da fila
+    substitui(processoAntigo, processoNovo){//Substitui um processo por outro na RAM
         if(this._ram.length===0){//Se a fila está vazia, retorna null
             return null;
         }
         for(let i=0;i<this._ram.length;i++){
+            console.log('Processo antigo: ' + processoAntigo);
+            console.log('Olhando processo: ' + this._ram[i]);
             if(this._ram[i]===processoAntigo){
                 this._ram.splice(i, 1, processoNovo);
                 processoNovo.enderecoRam = processoAntigo.enderecoRam;
+                console.log('Endereço RAM: ' + processoNovo.enderecoRam);
                 processoAntigo.enderecoRam = -1;
                 break;
             }
@@ -72,21 +75,7 @@ export default class Ram{
         return this._ram;
     }
 
-    atualizaRam(t){//Adiciona no fim da fila todos os processos que chegam no tempo t (na ordem em que aparecem no array de processos)
-        console.log('Estado atual da RAM: ' + this._ram);
-        console.log('Processos para entrar:' + this._processos);
-        let processosVerdes = [];
-        for(let i=0;i<this._processos.length;i++){
-            if(this._processos[i].tempoChegada===t){
-                console.log(this._processos[i]);
-                this.entra(this._processos[i]);
-            }
-            else processosVerdes.push(this._processos[i]);
-        }
-        this._processos = processosVerdes;
-    }
-
-    get estadoRam() {
+    get ram() {
         return this._ram;
     }
 }
