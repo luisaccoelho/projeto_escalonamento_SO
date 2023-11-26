@@ -57,6 +57,14 @@
     color: #61dafb;
 }
 
+.Nomes{
+  font-size: 0.8em;
+}
+
+.Ancora:visited{
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

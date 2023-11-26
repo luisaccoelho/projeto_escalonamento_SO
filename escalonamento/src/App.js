@@ -14,7 +14,7 @@ import Virtual from './memoria/Virtual.js';
 import Turnaround from './interface/turnaround.js';
 import RamVisualizacao from './memoria/visualização/ramVisualizacao.js';
 import DiscoVisualizacao from './memoria/visualização/discoVisualizacao.js';
-import VirtualVisualizacao from './memoria/visualização/virtualVisualizacao.js';
+import RamAlternativa from './memoria/visualização/ramAlternativa.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -167,8 +167,9 @@ function App() {
         <div className='Memoria'>
           <DiscoVisualizacao disco={sim.disco}/>
           <RamVisualizacao ram={sim.ram}/>
-          <VirtualVisualizacao virtual={sim.virtual}/>
+          <RamAlternativa ram={sim.ram}/>
         </div>
+        <p className='Nomes'>Feito por <a className='Ancora' href='https://github.com/KukoBerry'>João Silva Soares</a>, <a className='Ancora' href='https://github.com/LucasTBorges'>Lucas Teixeira Borges</a> e <a className='Ancora' href='https://github.com/luisaccoelho'>Luísa Coutinho Coelho</a></p>
       </header>
     </div>
   );
