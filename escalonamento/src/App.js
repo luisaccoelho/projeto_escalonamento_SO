@@ -1,4 +1,4 @@
-import Process from './Process.js';
+import Process from './Processo.js';
 import {Simulacao, Algoritmo, Tabela} from './Simulacao.js';
 import { MemoAlgoritmo } from './memoria/Ram.js';
 import './App.css';

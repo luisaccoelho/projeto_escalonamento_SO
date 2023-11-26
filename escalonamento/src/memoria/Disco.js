@@ -1,4 +1,4 @@
-import Process from "../Process";
+import Process from "../Processo";
 import Fila from "../Fila";
 
 export default class Disco {

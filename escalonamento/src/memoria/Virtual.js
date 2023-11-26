@@ -1,4 +1,4 @@
-import Process from "../Process";
+import Process from "../Processo";
 
 export default class Virtual {
     constructor(processos=[]){
