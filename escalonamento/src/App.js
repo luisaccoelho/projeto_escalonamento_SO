@@ -170,6 +170,7 @@ function App() {
           <RamVisualizacao ram={sim.ram}/>
           <RamAlternativa ram={sim.ram}/>
         </div>
+        <p className='Nomes'>Feito por <a className='Ancora' href='https://github.com/KukoBerry'>João Silva Soares</a>, <a className='Ancora' href='https://github.com/LucasTBorges'>Lucas Teixeira Borges</a> e <a className='Ancora' href='https://github.com/luisaccoelho'>Luísa Coutinho Coelho</a></p>
       </header>
     </div>
   );
