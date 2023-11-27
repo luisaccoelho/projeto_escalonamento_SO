@@ -8,7 +8,6 @@ export default class Disco {
 
     atualizaDisco(t){
         this._processos.chegam(t);
-        console.log('Disco: ' + this._processos.fila);
     }
 
     get processos(){

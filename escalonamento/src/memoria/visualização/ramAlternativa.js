@@ -74,7 +74,6 @@ function tamanhoLivre(ram){
 }
 export default function RamAlternativa({ram}){
     const lista = ramParaLista(ram.ram).concat(mulElemento("",tamanhoLivre(ram)/4000));
-    console.log(`${tamanhoLivre(ram)} vs ${ram._livre}`);
     return(
         <div className='RamAlternativa'>
             <p className='TituloRam'>RAM (Visualização em Tabela)</p>

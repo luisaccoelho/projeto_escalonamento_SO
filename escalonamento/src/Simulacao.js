@@ -69,7 +69,6 @@ export class Simulacao {
     coluna(execucao){//Retorna um array com os estados dos processos, recebe o processo que foi executado
         let processos = this._estado.processos;
         let coluna = [];
-        console.log('Processo em execução: ' + execucao);
         for(let i=0; i<processos.length; i++){
             let processo = processos[i];
             if(!processo.jaChegou(this._estado.tempo-1)){
@@ -116,7 +115,6 @@ export class Simulacao {
                 }
             }
         }
-        //console.log(`Tempo ${this._estado.tempo}, Executado ${execucao.id}, Coluna ${coluna}`);
         return coluna;
     }
 

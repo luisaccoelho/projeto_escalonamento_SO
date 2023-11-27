@@ -22,7 +22,6 @@ function Quadrado(estado){
         case 7:
             return <div className='FINALIZADO_DL'></div>;
         default:
-            console.log(estado.estado);
             return <p>ERRO</p>;
     }
 }
