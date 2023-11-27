@@ -6,6 +6,7 @@ function LinhaVirtual(endereco){
 }
 
 function VirtualVisualizacao({virtual}){
+    console.log('Virtual: ' + virtual.enderecosArrayOrdenado);
     if(virtual.enderecos!=undefined){
         let enderecosOrdenados = virtual.enderecosArrayOrdenado;
         console.log('Tá definido!' + enderecosOrdenados);

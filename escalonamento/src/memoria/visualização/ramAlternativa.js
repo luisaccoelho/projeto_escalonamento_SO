@@ -65,9 +65,16 @@ function TabelaRam({lista}){
         </div>
     );
 }
-
+function tamanhoLivre(ram){
+    let tamanho = 0;
+    for(let i=0;i<ram.ram.length;i++){
+        tamanho += ram.ram[i].tamanho*4000;
+    }
+    return ram._tamanho-tamanho;
+}
 export default function RamAlternativa({ram}){
-    const lista = ramParaLista(ram.ram).concat(mulElemento("",ram._livre/4000));
+    const lista = ramParaLista(ram.ram).concat(mulElemento("",tamanhoLivre(ram)/4000));
+    console.log(`${tamanhoLivre(ram)} vs ${ram._livre}`);
     return(
         <div className='RamAlternativa'>
             <p className='TituloRam'>RAM (Visualização em Tabela)</p>
