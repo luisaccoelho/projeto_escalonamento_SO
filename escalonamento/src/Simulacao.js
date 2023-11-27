@@ -1,7 +1,7 @@
 import Estado from "./Estado";
 import Disco from "./memoria/Disco";
 import Ram from "./memoria/Ram";
-import Virtual from "./memoria/Virtual";
+
 
 export const Algoritmo = { //Enumeração dos algoritmos de escalonamento
     SJF: 0,
@@ -22,7 +22,7 @@ export const Tabela = { //Enumeração dos estados dos processos na tabela
 }
 
 export class Simulacao {
-    constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1, disco=new Disco(), ram=new Ram(), virtual=new Virtual()){
+    constructor(algoritmo, processos=[], tamSobrecarga=0, tamQuantum=1, disco=new Disco(), ram=new Ram()){
         this._estado = new Estado(processos); //Estado atual da simulação
         if(tamSobrecarga===''||tamSobrecarga===null||tamSobrecarga===undefined)
             tamSobrecarga = 0; //Se a sobrecarga for vazia ou nula, ela é 0
@@ -37,7 +37,6 @@ export class Simulacao {
         this._algoritmo = algoritmo;//Algoritmo de escalonamento
         this._disco = disco;
         this._ram = ram;
-        this._virtual = virtual;
         this._colunas=[];//Array de colunas da tabela
     }
 
@@ -86,7 +85,6 @@ export class Simulacao {
                         coluna.push(Tabela.EXECUTANDO_DL); //Processo em execução mas expirado
                         this._ram.entra(processo); //Coloca o processo em execução na RAM
                         processo.ultimaChamada = this._estado.tempo-1; //Atualiza a última chamada do processo
-                        this._virtual.atualizaVirtual(this._ram.ram); //Atualiza a virtual de acordo com o estado atual da RAM
                         continue;
                     }
                     else{
@@ -104,7 +102,6 @@ export class Simulacao {
                         coluna.push(Tabela.EXECUTANDO); //Processo em execução
                         this._ram.entra(processo); //Coloca o processo em execução na RAM
                         processo.ultimaChamada = this._estado.tempo-1; //Atualiza a última chamada do processo
-                        this._virtual.atualizaVirtual(this._ram.ram); //Atualiza a virtual de acordo com o estado atual da RAM
                         continue;
                     }
                     else{
@@ -192,9 +189,5 @@ export class Simulacao {
 
     get disco(){
         return this._disco;
-    }
-
-    get virtual(){
-        return this._virtual;
     }
 }

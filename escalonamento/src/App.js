@@ -10,13 +10,11 @@ import './interface/form.css';
 import { useState } from 'react';
 import Disco from './memoria/Disco.js';
 import Ram from './memoria/Ram.js';
-import Virtual from './memoria/Virtual.js';
 import Turnaround from './interface/turnaround.js';
 import RamVisualizacao from './memoria/visualização/ramVisualizacao.js';
 import DiscoVisualizacao from './memoria/visualização/discoVisualizacao.js';
 import RamAlternativa from './memoria/visualização/ramAlternativa.js';
 import VirtualAlt from './memoria/visualização/virtualDois.js';
-import VirtualVisualizacao from './memoria/visualização/virtualVisualizacao.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -94,8 +92,7 @@ function App() {
     }
     const disco = new Disco(processosSim);
     const ram = new Ram(processosSim, memoAlgoritmo);
-    const virtual = new Virtual(processosSim);
-    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum, disco, ram, virtual);
+    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum, disco, ram);
     setSim(simula);
   }
   
