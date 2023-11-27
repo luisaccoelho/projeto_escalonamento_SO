@@ -1,4 +1,4 @@
-import Process from './Process.js';
+import Process from './Processo.js';
 import Fila from './Fila.js';
 
 export default class Estado {

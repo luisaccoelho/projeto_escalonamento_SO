@@ -1,5 +1,6 @@
-import Process from './Process.js';
+import Process from './Processo.js'; // Updated import statement
 import {Simulacao, Algoritmo, Tabela} from './Simulacao.js';
+import { MemoAlgoritmo } from './memoria/Ram.js';
 import './App.css';
 import Grafico from './grafico/tabela.js';
 import IdentificadorCol from './grafico/grafico.js';
@@ -7,7 +8,13 @@ import Processos from './interface/processos.js';
 import './grafico/grafico.css';
 import './interface/form.css';
 import { useState } from 'react';
+import Disco from './memoria/Disco.js';
+import Ram from './memoria/Ram.js';
 import Turnaround from './interface/turnaround.js';
+import RamVisualizacao from './memoria/visualização/ramVisualizacao.js';
+import DiscoVisualizacao from './memoria/visualização/discoVisualizacao.js';
+import RamAlternativa from './memoria/visualização/ramAlternativa.js';
+import VirtualAlt from './memoria/visualização/virtualDois.js';
 
 function atualizar(variavel,funcao){//Função que atualiza o estado de uma variável booleana para engatilhar re-renderização da página
   funcao(!variavel);
@@ -16,7 +23,7 @@ function atualizar(variavel,funcao){//Função que atualiza o estado de uma vari
 function App() {
   const [processos, setProcessos] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [sim, setSim] = useState(new Simulacao());
+  const [sim, setSim] = useState(new Simulacao());//processos,quantum,sobrecarga,algoritmo,disco,ram,virtual
   const atualiza = () => {
     atualizar(update,setUpdate);
   }
@@ -48,7 +55,9 @@ function App() {
     const quantum = document.getElementById('quantum').value;
     const sobrecarga = document.getElementById('sobrecarga').value;
     const algoritmoString = document.getElementById('algoritmo').value;
+    const memoAlgoritmoString = document.getElementById('memoAlgoritmo').value;
     let algoritmo = 0;
+    let memoAlgoritmo = 0;
     switch(algoritmoString){
       case 'FIFO':
         algoritmo = Algoritmo.FIFO;
@@ -66,16 +75,26 @@ function App() {
         throw new Error('Algoritmo não reconhecido');
         break;
     }
+    switch(memoAlgoritmoString){
+      case 'FIFO':
+        memoAlgoritmo = MemoAlgoritmo.FIFO;
+        break;
+      case 'MRU':
+        memoAlgoritmo = MemoAlgoritmo.MRU;
+        break;
+      default:
+        throw new Error('Algoritmo da memória não reconhecido');
+        break;
+    }
     let processosSim = [];
     for(let i = 0; i<processos.length; i++){
       processosSim.push(new Process(processos[i].id,processos[i].tempochegada,processos[i].tempoexecucao,processos[i].deadline,processos[i].tamanho));
     }
-    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum);
+    const disco = new Disco(processosSim);
+    const ram = new Ram(processosSim, memoAlgoritmo);
+    const simula = new Simulacao(algoritmo, processosSim, sobrecarga, quantum, disco, ram);
     setSim(simula);
-    //setSim(new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2));
   }
-  //let colunaA = [Tabela.ACHEGAR, Tabela.EXECUTANDO, Tabela.ESPERANDO, Tabela.FINALIZADO, Tabela.SOBRECARGA, Tabela.EXECUTANDO_DL, Tabela.ESPERANDO_DL, Tabela.FINALIZADO_DL];
-  //let sim = new Simulacao(Algoritmo.EDF, [new Process(0,2,4,10), new Process(1,0,3,6), new Process(2,1,2,4), new Process(3,3,1,7)],2,2);
   
   const finalizaSim = () => {//Avança até o final da simulação. Limite de 400 ciclos para evitar loops infinitos
     let i = 0;
@@ -93,6 +112,7 @@ function App() {
     sim.transicao();
     atualiza();
   }
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -107,7 +127,7 @@ function App() {
             <label className='Rotulo'>Deadline: </label>
             <input className='Input' type='number' id='deadline' name='deadline' placeholder='1' min='1' step='1'/>
             <label className='Rotulo'>Tamanho: </label>
-            <input className='Input' type='number' id='tamanho' name='tamanho' placeholder='1' min='1' step='1'/>
+            <input className='Input' type='number' id='tamanho' name='tamanho' placeholder='1' min='1' max='10' step='1'/>
             <button className='Adicionar' type='submit'>Adicionar</button>
           </form>
         </div>
@@ -126,6 +146,11 @@ function App() {
               <option value="RR">RR</option>
               <option value="EDF">EDF</option>
             </select>
+            <label className='Rotulo'>Algoritmo da Memória: </label>
+            <select className='Escolha' id='memoAlgoritmo'>
+              <option value="FIFO">FIFO</option>
+              <option value="MRU">MRU</option>
+            </select>
             <button className='Adicionar' type='submit'>Iniciar</button>
           </form>
         </div>
@@ -138,6 +163,13 @@ function App() {
           <button className='Controle' onClick={avancaCiclo}>Avançar um ciclo</button>
           <button className='Controle' onClick={finalizaSim}>Avançar até o final da simulação</button>
         </div>
+        <div className='Memoria'>
+          <DiscoVisualizacao disco={sim.disco}/>
+          <RamVisualizacao ram={sim.ram}/>
+          <RamAlternativa ram={sim.ram}/>
+          <VirtualAlt ram={sim.ram}/>
+        </div>
+        <p className='Nomes'>Feito por <a className='Ancora' href='https://github.com/KukoBerry'>João Silva Soares</a>, <a className='Ancora' href='https://github.com/LucasTBorges'>Lucas Teixeira Borges</a> e <a className='Ancora' href='https://github.com/luisaccoelho'>Luísa Coutinho Coelho</a></p>
       </header>
     </div>
   );

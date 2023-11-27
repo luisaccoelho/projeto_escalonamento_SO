@@ -1,0 +1,15 @@
+.Memoria{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.MemoriaItem{
+    margin: 20px;
+}
+
+.ProcessoMemoria{
+    font-size: 0.7em;
+    margin: 8px;
+}

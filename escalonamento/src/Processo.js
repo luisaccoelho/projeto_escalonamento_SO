@@ -52,11 +52,12 @@ export default class Process {
         this._tempoEspera = tempoEspera;
         this._expirou = this._deadline < 0;
         this._terminou = this._elapsedTime === this._tempExec;
-        this._expirouEm = null; //Tempo em que o processo expirou caso tenha acontecido
+        this._ultimaChamada = -1;
+        this._enderecoRam = -1;
     }
 
     toString() {
-        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\n`;
+        return `Processo ${this._id}\nChegada: ${this._tempoChegada}\nExecução: ${this._tempExec}\nDeadline: ${this._deadline}\nTamanho: ${this._tamanho}\nTempo de Espera: ${this._tempoEspera}\nExpirou: ${this._expirou}\nTerminou: ${this._terminou}\nElapsed Time: ${this._elapsedTime}\nÚltima chamada: ${this._ultimaChamada}\n`;
     }   // não conta Prioridade
 
     getTurnaround() {
@@ -192,6 +193,24 @@ export default class Process {
 
     set expirouEm(value) {
         this._expirouEm = value;
+        return this;
+    }
+
+    get ultimaChamada() {
+        return this._ultimaChamada;
+    }
+
+    set ultimaChamada(value) {
+        this._ultimaChamada = value;
+        return this;
+    }
+
+    get enderecoRam() {
+        return this._enderecoRam;
+    }
+
+    set enderecoRam(value) {
+        this._enderecoRam = value;
         return this;
     }
 }
